@@ -1,0 +1,50 @@
+
+<div class = "banner">
+    <div class = "bannertext"> Lockheed Martin PCO Tooling </div>
+</div>
+
+<div class = "header">
+    <div class = "TE-Select">Tooling Engineer Selection</div>
+    <div class = "Prompt">Please select your name</div>
+</div>
+
+<div class = "Nameselect">
+    <div class = "dropdown">
+        <mat-form-field >
+            <mat-select  [(ngModel)]="selecteduser" placeholder="Select user">
+                <mat-option *ngFor ="let i of Names" [value] = "i">
+                    {{i.UserFirst}} {{i.UserLast}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class = "submit">
+        <div id = "SubmitButton">
+            <button matButton="filled" (click) = "RoutetoTEDashboard()">
+                Log in
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class = "AddUser">
+        <button matButton = "filled" class = "AddUserBut" routerLink ="/adduser">
+            Added Users
+        </button>
+    </div>
+    <div class = "RemoveUser">
+        <button matButton = "filled" class =RemoveUserBut routerLink = "/removeuser">
+            Remove Users
+        </button> 
+    </div>
+    <div class = "creed">
+        Do What's Right - Respect Others - Perform with Excellence
+    </div>
+    <div class = "Stats">
+        <button matButton = "filled" class = "StatsBut">
+            Tooling Overview
+        </button>
+    </div>
+</div>
+

@@ -1,0 +1,287 @@
+<div class = "banner">
+    
+     <div class = "bannertext"> New Tooling Request
+      
+     </div>
+     <img src="assets/ToolingLogo.png" class="banner-profile">
+     
+</div>
+
+
+    <ng-container  *ngIf =  "selectedtype === 0;else RequestTypePage">
+        <div class = "title">
+            Please select a request type below
+            <div class = "option">
+            <div class = "optionbox">
+                <div class = "header">Design Request</div>
+                <div>Please use a design request when you need one of the following services</div>
+                <div class = "textbody">
+                    <div class = "text">1. New tool to be designed</div>
+                    <div class = "text" >2. Exsisting tool Redesgined </div>
+                    <div class = "text">3. Exsisting tool design modified</div>
+                </div>
+                 <button matButton = "filled" class = "ReqBut"  (click)="selectedUpdate(1)"> Create Design Request</button>
+            </div>
+            <div class = "optionbox">
+                <div class = "header">Sustainment Request</div>
+                <div >Please use a sustainment request when you need one of the following things</div>
+                <div class = "textbody" >
+                    <div class = "text">1. Need a higher quanity of exsiting tool </div>
+                    <div class = "text" >2. Exsisting tool has broken and needs repaired, but not modified</div>
+                    <div class = "text">3. Tools have broken and need replaced</div>
+                </div>
+                    <button matButton = "filled" class = "ReqBut" (click)="selectedUpdate(2)"> Create Sustainment Request</button>
+            </div>
+            </div>
+        </div>        
+
+    </ng-container>
+
+    <ng-template #RequestTypePage>
+    <div class = "RequestType">
+        <div>Request Type</div>
+    <ng-container *ngIf =  "selectedtype === 1; else SustainmentDesign" >
+        <div class = "RequestContent">
+            <div class="toggle-container">
+                    <mat-button-toggle-group
+                        class="design-toggle-pill"
+                        aria-label="Design Item"
+                        [(ngModel)]="selectedtype"
+                        appearance="legacy">
+                        
+                        <mat-button-toggle [value]="1">Design</mat-button-toggle>
+                        <mat-button-toggle [value]="2">Sustainment</mat-button-toggle>
+                    </mat-button-toggle-group>
+            </div>
+                <div class = "row">
+                <div class = "Field">
+                    <div class = "FieldTitle">Point of Contact Name: </div>
+                        <mat-form-field class="FormField">
+                            <mat-label>Full Name  </mat-label>
+                            <input matInput [(ngModel)] ="InputInfo.ReqName" placeholder="" value="">
+                        </mat-form-field>
+                </div>
+                <div class = "Field">
+                    <div class = "FieldTitle"> POC Employee Number:</div>
+                        <mat-form-field class="FormField">
+                            <mat-label>Without "e"</mat-label>
+                            <input matInput [(ngModel)] ="InputInfo.ReqENumber" placeholder="" value="" (keypress)="allowNumbersOnly($event)">
+                        </mat-form-field>
+                </div>
+                </div>
+                <div class = "row">
+                <div class = "Field">
+                    <div class = "FieldTitle"> Tool Number</div>
+                        <mat-form-field class="FormField">
+                            <mat-label>Typically: XX-XX-XXXXXX</mat-label>
+                            <input matInput [(ngModel)] ="InputInfo.ToolNumber" placeholder="" value="">
+                        </mat-form-field>
+                </div>
+                <div class = "Field">
+                    <div class = "FieldTitle"> Tool Description</div>
+                        <mat-form-field class="FormField">
+                            <mat-label>Commonly used name for tool</mat-label>
+                            <input matInput [(ngModel)] ="InputInfo.ToolDesc" placeholder="" value="">
+                        </mat-form-field>
+                </div>
+                </div>
+                <div class = "row">
+                <div class = "Field">
+                    <div class = "FieldTitle"> Priority</div>
+                    
+                        <mat-form-field class="FormField">
+                            <mat-label>Select Priority</mat-label>
+                            <mat-select [(ngModel)]="InputInfo.Priority">
+                                <mat-option [value]="'Urgent'"> Urgent</mat-option>
+                                <mat-option [value]="'High'"> High</mat-option>
+                                <mat-option [value]="'Standard'"> Standard</mat-option>
+                                <mat-option [value]="'Low'"> Low</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                </div>
+                <div class = "Field">
+                    <div class = "FieldTitle"> Program</div>
+                        <mat-form-field appearance="fill" class="FormField">
+                            <mat-label>Select Program</mat-label>
+
+                            <mat-select [(ngModel)]="InputInfo.PRID">
+                                <mat-option *ngFor="let program of ProgramInfo" [value]="program.PRID">
+                                    
+                                    {{ program.ProgramName }}
+                                </mat-option>
+                            </mat-select>
+
+                            </mat-form-field>
+                            
+                </div>
+                </div>
+                <div class = "FieldLong">
+                    <div class = "FieldTitle"> Reason for Tool Request</div>
+                        <mat-form-field class="FormFieldLong">
+                            <mat-label></mat-label>
+                            <textarea matInput
+                            [(ngModel)] ="InputInfo.Rational"
+                            placeholder="Justification for Request"
+                            value= "InputInfo.Rational"
+                            cdkTextareaAutosize
+                            #autosize="cdkTextareaAutosize"
+                            matTextareaAutosize
+                            matAutosizeMinRows="3"
+                            matAutosizeMaxRows="10"
+                            ></textarea>
+                        </mat-form-field>
+                </div>
+                <div class = "FieldLong">
+                    <div class = "FieldTitle"> Overview of Tool Requirements</div>
+                        <mat-form-field class="FormFieldLong">
+                            <mat-label></mat-label>
+                            <textarea matInput
+                            [(ngModel)] ="InputInfo.ToolReq"
+                            placeholder="The more detail the better "
+                            value= "InputInfo.ToolReq"
+                            cdkTextareaAutosize
+                            #autosize="cdkTextareaAutosize"
+                            matTextareaAutosize
+                            matAutosizeMinRows="3"
+                            matAutosizeMaxRows="10"
+                            ></textarea>
+                        </mat-form-field>
+                </div>
+            
+            <div class ="SubmitButtonCont"><button mat-flat-button color="primary" class = "SubmitButton" (click) = "submitRequest()">Submit Request</button></div>
+            
+        </div>
+    </ng-container>
+    </div>
+    </ng-template>
+
+    <ng-template #SustainmentDesign>
+
+        <div class = "RequestContent">
+            <div class="toggle-container">
+                    <mat-button-toggle-group
+                        class="design-toggle-pill"
+                        aria-label="Design Item"
+                        [(ngModel)]="selectedtype"
+                        appearance="legacy">
+                        
+                        <mat-button-toggle [value]="1">Design</mat-button-toggle>
+                        <mat-button-toggle [value]="2">Sustainment</mat-button-toggle>
+                    </mat-button-toggle-group>
+            </div>
+                <div class = "row">
+                <div class = "Field">
+                    <div class = "FieldTitle">Point of Contact Name: </div>
+                        <mat-form-field class="FormField">
+                            <mat-label>Full Name  </mat-label>
+                            <input matInput [(ngModel)] ="InputInfo.ReqName" placeholder="" value="">
+                        </mat-form-field>
+                </div>
+                <div class = "Field">
+                    <div class = "FieldTitle"> POC Employee Number:</div>
+                        <mat-form-field class="FormField">
+                            <mat-label>Without "e"</mat-label>
+                            <input matInput [(ngModel)] ="InputInfo.ReqENumber" placeholder="" value="" (keypress)="allowNumbersOnly($event)">
+                        </mat-form-field>
+                </div>
+                </div>
+                <div class = "row">
+                <div class = "Field">
+                    <div class = "FieldTitle"> Tool Number</div>
+                        <mat-form-field class="FormField">
+                            <mat-label>Typically: XX-XX-XXXXXX</mat-label>
+                            <input matInput [(ngModel)] ="InputInfo.ToolNumber" placeholder="" value="">
+                        </mat-form-field>
+                </div>
+                <div class = "Field">
+                    <div class = "FieldTitle"> Tool Description</div>
+                        <mat-form-field class="FormField">
+                            <mat-label>Commonly used name for tool</mat-label>
+                            <input matInput [(ngModel)] ="InputInfo.ToolDesc" placeholder="" value="">
+                        </mat-form-field>
+                </div>
+                </div>
+                <div class = "row">
+                <div class = "Field">
+                    <div class = "FieldTitle"> Tool Drawing Detail Number</div>
+                        <mat-form-field class="FormField">
+                            <mat-label>Typically: X-XX</mat-label>
+                            <input matInput [(ngModel)] ="InputInfo.DETNum" placeholder="" value="">
+                        </mat-form-field>
+                </div>
+                <div class = "Field">
+                    <div class = "FieldTitle"> Quanity Needed</div>
+                        <mat-form-field class="FormField">
+                            <mat-label>Quanity Needed Ordered</mat-label>
+                            <input matInput [(ngModel)] ="InputInfo.QTY" placeholder="" value="">
+                        </mat-form-field>
+                </div>
+                </div>
+                <div class = "row">
+                <div class = "Field">
+                    <div class = "FieldTitle"> Priority</div>
+                    
+                        <mat-form-field class="FormField">
+                            <mat-label>Select Priority</mat-label>
+                            <mat-select [(ngModel)]="InputInfo.Priority">
+                                <mat-option [value]="'Urgent'"> Urgent</mat-option>
+                                <mat-option [value]="'High'"> High</mat-option>
+                                <mat-option [value]="'Standard'"> Standard</mat-option>
+                                <mat-option [value]="'Low'"> Low</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                </div>
+                <div class = "Field">
+                    <div class = "FieldTitle"> Program</div>
+                        <mat-form-field appearance="fill" class="FormField">
+                            <mat-label>Select Program</mat-label>
+
+                            <mat-select [(ngModel)]="InputInfo.PRID">
+                                <mat-option *ngFor="let program of ProgramInfo" [value]="program.PRID">
+                                    
+                                    {{ program.ProgramName }}
+                                </mat-option>
+                            </mat-select>
+
+                            </mat-form-field>
+                            
+                </div>
+                </div>
+                <div class = "FieldLong">
+                    <div class = "FieldTitle"> Reason for Tool Quanity Increase or Replacement</div>
+                        <mat-form-field class="FormFieldLong">
+                            <mat-label></mat-label>
+                            <textarea matInput
+                            [(ngModel)] ="InputInfo.Rational"
+                            placeholder="If tools are being lost or broken commonly please explain why as well"
+                            value= "InputInfo.Rational"
+                            cdkTextareaAutosize
+                            #autosize="cdkTextareaAutosize"
+                            matTextareaAutosize
+                            matAutosizeMinRows="3"
+                            matAutosizeMaxRows="10"
+                            ></textarea>
+                        </mat-form-field>
+                </div>
+                <!--<div class = "FieldLong">
+                    <div class = "FieldTitle"> Overview of Tool Requirements</div>
+                        <mat-form-field class="FormFieldLong">
+                            <mat-label></mat-label>
+                            <textarea matInput
+                            [(ngModel)] ="InputInfo.Rational"
+                            placeholder="The more detail the better "
+                            value= "InputInfo.Rational"
+                            cdkTextareaAutosize
+                            #autosize="cdkTextareaAutosize"
+                            matTextareaAutosize
+                            matAutosizeMinRows="3"
+                            matAutosizeMaxRows="10"
+                            ></textarea>
+                        </mat-form-field>
+                </div>-->
+            
+            <div class ="SubmitButtonCont"><button mat-flat-button color="primary" class = "SubmitButton" (click) = "submitRequest()">Submit Request</button></div>
+            
+        </div>
+       
+    </ng-template>

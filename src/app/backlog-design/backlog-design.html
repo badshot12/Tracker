@@ -1,0 +1,369 @@
+<div class = "banner">
+    
+     <div class = "bannertext"> PCO Tooling Project List
+      
+     </div>
+     <img src="assets/ToolingLogo.png" class="banner-profile">
+     
+</div>
+<div class = "Screen">
+    
+    <div class ="Sidebar">
+        Filters
+
+        <div class = "ProgramFilter">
+            <div> Filter Program</div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Request Type</mat-label>
+
+                    <mat-select [(ngModel)]="ReqTypeFilter">
+                        <mat-option [value]="0">All</mat-option>
+                        <mat-option [value]="1">Design</mat-option>
+                        <mat-option [value]="2">Replacement</mat-option>
+                    </mat-select>
+
+                    </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Program</mat-label>
+
+                    <mat-select [(ngModel)]="ProgramFilter">
+                        <mat-option [value]="0">No Filter</mat-option>
+                        <mat-option *ngFor="let program of ProgramInfo" [value]="program.PRID">
+                            
+                            {{ program.ProgramName }}
+                        </mat-option>
+                    </mat-select>
+
+                    </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="ENumber">
+                    <mat-label>Employee Number (no e)</mat-label>
+                    <input matInput type="number" matInput [(ngModel)] ="ReqEnumberFilter" placeholder="No Filter" value="0" (blur)="refreshRender()">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="ReqNumFilter">
+                    <mat-label>Request Number</mat-label>
+                    <input matInput type="number" matInput [(ngModel)] ="ReqNumFilter" placeholder="No Filter" value="0" (blur)="refreshRender()">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class ="workingspace">
+        
+        <ng-container *ngFor = "let program of ProgramInfo">
+            
+            <div *ngIf="ProgramFilter === 0 || program.PRID === ProgramFilter" class = "JASSMProjects" >
+            
+            <mat-expansion-panel [expanded]="true" class = "JASSMExp">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                            {{program.ProgramName}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                    
+                    <ng-container *ngIf = "ReqTypeFilter === 0 || ReqTypeFilter === 1">
+                        <mat-expansion-panel >
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                     Design Items
+                                </mat-panel-title>
+                            </mat-expansion-panel-header >
+                                <div *ngFor = "let designproject of BacklogProjectList">
+                                <ng-container *ngIf = "designproject.UID === null">
+                                <ng-container *ngIf = "designproject.PRID === program.PRID &&  designproject.Designitem === 1">
+                                    <ng-container *ngIf = "(ReqEnumberFilter === null && ReqNumFilter === null) || (ReqEnumberFilter !== 0 && designproject.ReqENumber === ReqEnumberFilter) || (ReqNumFilter !== 0 && designproject.RID === ReqNumFilter)">
+                                    <mat-expansion-panel > <!--Expanasion Panel for more info for all indiviual project-->
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class = "ProjectHeader">
+                                                <div class = "smallInfo">
+                                                    <div class = "headeritem">Request Number: {{designproject.RID}}</div>
+                                                    <mat-divider vertical></mat-divider>
+                                                    <div class = "headeritem"> Requestor: {{designproject.ReqName}}</div>
+                                                    <mat-divider vertical></mat-divider>
+                                                    <div class = "headeritem">Tool #: {{designproject.ToolNumber}}</div>
+                                                    <mat-divider vertical></mat-divider>
+                                                </div>
+                                                <div class = "LongInfo">
+                                                    <div class = "headerdesc">Tool Description: {{ designproject.ToolDesc}}</div>
+                                                </div>
+                                            </div>
+                                        </mat-panel-title>
+                                            
+                                    </mat-expansion-panel-header>
+                                    <div class = "ProjectInfoInv">
+                                                <mat-divider ></mat-divider>
+                                                <div class = "firstrow">
+                                                    <div>Priority: {{designproject.Priority}}</div>
+                                                    <div>Quanity: {{designproject.QTY}}</div>
+                                                </div>
+                                                <mat-divider ></mat-divider>
+                                                <div class = "singlerow">
+                                                    <div>Reason for Tool: </div>
+                                                     <div>{{designproject.Rational}}</div>
+                                                </div>
+                                                <mat-divider ></mat-divider>
+                                                <div class = "singlerow">
+                                                    <div> Project Description:</div>
+                                                    <div>{{designproject.ToolReq}}</div>
+                                                </div>
+                                                <mat-divider ></mat-divider>
+                                                <div class = "projectbuttons">
+                                                    <button matButton = "filled" class = "editAssign" (click)="openEditDialog(EditDialog, designproject)"> Edit</button>
+                                                    <button matButton = "filled" class = "editAssign" (click) = "openDialog(AssignDialog, designproject.RID,uid,Names )"> Assign</button>
+                                                    <button mat-flat-button style="background-color: #b11207; color: white;" class = "projectdeletebut" (click) = "deleteFun(designproject.RID!)"> Delete</button>
+                                                </div>
+                                            </div>
+                                        </mat-expansion-panel>
+                                    </ng-container>
+                                </ng-container>
+                                </ng-container>
+                                </div>
+                            </mat-expansion-panel>
+                        
+                        </ng-container>
+                    <div>
+                        <ng-container *ngIf = "ReqTypeFilter === 0 || ReqTypeFilter === 2">
+                        <mat-expansion-panel >
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                     Sustainment
+                                </mat-panel-title>
+                            </mat-expansion-panel-header >
+                                <div *ngFor = "let designproject of BacklogProjectList">
+                                <ng-container *ngIf = "designproject.UID === null">
+                                <ng-container *ngIf = "designproject.PRID === program.PRID &&  designproject.Designitem === 2">
+                                    <ng-container *ngIf = "(ReqEnumberFilter === null && ReqNumFilter === null) || (ReqEnumberFilter !== 0 && designproject.ReqENumber === ReqEnumberFilter) || (ReqNumFilter !== 0 && designproject.RID === ReqNumFilter)">
+                                    <mat-expansion-panel > <!--Expanasion Panel for more info for all indiviual project-->
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class = "ProjectHeader">
+                                                <div class = "smallInfo">
+                                                    <div class = "headeritem">Request Number: {{designproject.RID}}</div>
+                                                    <mat-divider vertical></mat-divider>
+                                                    <div class = "headeritem"> Requestor: {{designproject.ReqName}}</div>
+                                                    <mat-divider vertical></mat-divider>
+                                                    <div class = "headeritem">Tool #: {{designproject.ToolNumber}}</div>
+                                                    <mat-divider vertical></mat-divider>
+                                                </div>
+                                                <div class = "LongInfo">
+                                                    <div class = "headerdesc">Tool Description: {{ designproject.ToolDesc}}</div>
+                                                </div>
+                                            </div>
+                                        </mat-panel-title>
+                                            
+                                    </mat-expansion-panel-header>
+                                    <div class = "ProjectInfoInv">
+                                                <mat-divider ></mat-divider>
+                                                <div class = "firstrow">
+                                                    <div>Priority: {{designproject.Priority}}</div>
+                                                    <div>Quanity: {{designproject.QTY}}</div>
+                                                </div>
+                                                <mat-divider ></mat-divider>
+                                                <div class = "singlerow">
+                                                    <div>Reason for Tool: </div>
+                                                     <div>{{designproject.Rational}}</div>
+                                                </div>
+                                                <mat-divider ></mat-divider>
+                                                <div class = "singlerow">
+                                                    <div> Project Description:</div>
+                                                    <div>{{designproject.ToolReq}}</div>
+                                                </div>
+                                                <mat-divider ></mat-divider>
+                                                <div class = "projectbuttons">
+                                                    <button matButton = "filled" class = "editAssign" (click)="openEditDialog(EditDialog, designproject)"> Edit</button>
+                                                    <button matButton = "filled" class = "editAssign" (click) = "openDialog(AssignDialog, designproject.RID,uid,Names )"> Assign</button>
+                                                    <button mat-flat-button style="background-color: #b11207; color: white;" class = "projectdeletebut" (click) = "deleteFun(designproject.RID!)"> Delete</button>
+                                                </div>
+                                            </div>
+                                        </mat-expansion-panel>
+                                    </ng-container>
+                                </ng-container>
+                                </ng-container>
+                                </div>
+                            </mat-expansion-panel>
+                        </ng-container>
+                    </div>
+                    
+                    
+
+
+
+
+            </mat-expansion-panel>
+            </div>
+        
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #AssignDialog>
+     <h2 mat-dialog-title>Assign Project</h2>
+
+  <mat-dialog-content>
+    <div class = "dropdown">
+        <div> Assign Project to: </div>
+        <mat-form-field >
+            <mat-select [(ngModel)]="selecteduser" placeholder="nothing">
+                <mat-option *ngFor ="let user of Names" [value] = "user.UID">
+                      {{ user.UserFirst }} {{ user.UserLast }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions >
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click) = "AssignFun(RID_Dia)">Assign</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!--Edit Dialog Box Start-->
+<ng-template #EditDialog let-project="project">
+  <h2 mat-dialog-title> 
+        
+    Edit Request Number  {{ selectedProject.RID }}</h2>
+  <mat-dialog-content>
+    <!-- Requestor Name -->
+    <div>
+        <div class = "textlabels">
+            Request Type
+            <div class="toggle-container">
+            <mat-button-toggle-group
+                class="design-toggle-pill"
+                aria-label="Design Item"
+                [(ngModel)]="selectedProject.Designitem"
+                appearance="legacy">
+                
+                <mat-button-toggle [value]="1">Design</mat-button-toggle>
+                <mat-button-toggle [value]="2">Sustainment</mat-button-toggle>
+            </mat-button-toggle-group>
+            </div>
+        </div>
+    <div class = "DialogEdit">
+        
+        <div class = "textlabels">
+        Requestors Name
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label></mat-label>
+                <input matInput
+                [(ngModel)] = "selectedProject.ReqName"
+                placeholder="selectedProject.ReqName"
+                value= "selectedProject.ReqName"
+                >
+            </mat-form-field>
+        </div>
+        </div>
+        <div class = "textlabels">
+            Program
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Program</mat-label>
+
+                    <mat-select [(ngModel)]="selectedProject.PRID">
+                        <mat-option *ngFor="let program of ProgramInfo" [value]="program.PRID">
+                            
+                            {{ program.ProgramName }}
+                        </mat-option>
+                    </mat-select>
+
+                    </mat-form-field>
+            </div>
+        </div>
+    </div>
+    
+    <div class = "DialogEdit">
+        <div class = "textlabels">
+            Tool Number
+            <mat-form-field class="example-full-width">
+                <mat-label></mat-label>
+                <input matInput
+                [(ngModel)] = "selectedProject.ToolNumber"
+                placeholder="selectedProject.ToolNumber"
+                value= "selectedProject.ToolNumber"
+                >
+            </mat-form-field>
+        </div>
+        <div class = "textlabels">
+            Tool Description
+            <mat-form-field class="example-full-width">
+                <mat-label></mat-label>
+                <input matInput
+                [(ngModel)] = "selectedProject.ToolDesc"
+                placeholder="selectedProject.ToolDesc"
+                value= "selectedProject.ToolDesc"
+                >
+            </mat-form-field>
+        </div>
+    </div>
+    <div class = "DialogEdit">
+    
+        <div class = "textlabels">
+            Priority
+            <mat-form-field class="example-full-width">
+                <mat-label></mat-label>
+                <input matInput
+                [(ngModel)] = "selectedProject.Priority"
+                placeholder="selectedProject.Priority"
+                value= "selectedProject.Priority"
+                >
+            </mat-form-field>
+        </div>
+        <div class = "textlabels">
+            Quanity
+            <mat-form-field class="example-full-width">
+                <mat-label></mat-label>
+                <input matInput
+                [(ngModel)] = "selectedProject.QTY"
+                placeholder="selectedProject.QTY"
+                value= "selectedProject.QTY"
+                >
+            </mat-form-field>
+        </div>
+    </div>
+        <div class = "textlabels">
+            Reasoning for Tool
+            <mat-form-field class="example-full-width">
+                <mat-label></mat-label>
+                <textarea matInput
+                [(ngModel)] = "selectedProject.Rational"
+                placeholder="selectedProject.Rational"
+                value= "selectedProject.Rational"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                matTextareaAutosize
+                matAutosizeMinRows="3"
+                matAutosizeMaxRows="10"
+                ></textarea>
+            </mat-form-field>
+        </div>
+        <div class = "textlabels">
+            Tool Requirements
+            <mat-form-field class="example-full-width">
+                <mat-label></mat-label>
+                <textarea matInput
+                [(ngModel)] = "selectedProject.ToolReq"
+                placeholder="selectedProject.ToolReq"
+                value= "selectedProject.ToolReq"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                matTextareaAutosize
+                matAutosizeMinRows="3"
+                matAutosizeMaxRows="10"
+                ></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click) = SaveFun()>Save</button>
+  </mat-dialog-actions>
+</ng-template>

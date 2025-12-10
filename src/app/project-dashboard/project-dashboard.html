@@ -1,0 +1,666 @@
+<div class = "banner">
+    
+     <div class = "bannertext"> Request No. {{rid}} Project Info
+      
+     </div>
+     <img src="assets/ToolingLogo.png" class="banner-profile">
+     
+</div>
+<div class = "content-area">
+<div class="app-container">
+    <div class ="Sidebar">
+        Tooling Tools
+        <div class = "BacklogDesign"> <button matTooltip = "Backlog Project List" mat-icon-button (click) = "toBacklogDesign()" ><mat-icon class = "backlogDesignicon" >featured_play_list</mat-icon></button>
+        Project List</div>
+        <div class = "BacklogDesign"> <button matTooltip = "Backlog Project List" mat-icon-button (click) = "ToolNumberGenRoute()" ><mat-icon class = "backlogDesignicon" >numbers</mat-icon></button>
+        Tool Number</div>
+        <div class = "BacklogDesign"> <button matTooltip = "Remove From My Project List" mat-icon-button (click) = "ToolNumberGenRoute()" ><mat-icon class = "backlogDesignicon" >playlist_remove</mat-icon></button>
+        Unassign Project</div>
+        <div class = "BacklogDesign"> <button matTooltip = "Remove From My Project List" mat-icon-button (click) = "Unassign()" ><mat-icon class = "backlogDesignicon" >history_edu</mat-icon></button>
+        Tool History</div>
+        <div class = "BacklogDesign"> <button matTooltip = "Remove From My Project List" mat-icon-button (click) = "Unassign()" ><mat-icon class = "backlogDesignicon" >build</mat-icon></button>
+        Tool Repair Report</div>
+        <div class = "BacklogDesign"> <button matTooltip = "Remove From My Project List" mat-icon-button (click) = "Unassign()" ><mat-icon class = "backlogDesignicon" >draw</mat-icon></button>
+        Drawing Review</div>
+    </div>
+    <!-- Main content -->
+    <div class="main-content" [class.drawer-open]="isDrawerOpen">
+        
+    
+    
+    
+    <div class ="workingspace">
+        <div class = "titlespace">
+            <div class = "backtoproject">
+                <button matButton = "filled" (click) = "backtoprojectlist()">Back to Projects</button>
+            </div>
+            <div class = "title">
+                <div class = "ToolDesc">{{ProjectData[0].ToolDesc}}</div>
+                <div class = "ToolNumber">{{ProjectData[0].ToolNumber}}</div>
+            </div>
+             <div class = "SaveBut">
+                <button matButton = "filled" (click) = "savecontent()">Save</button>
+            </div>
+        </div>
+        <div><!-- General Info -->
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            General Project Info
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class = GeneralInfo>
+                        <div class ="TopRow">
+                            <div class = "KeyItem">
+                                Request Number: 
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].RID"
+                                    placeholder="PProjectData[0].RID"
+                                    value= "ProjectData[0].RID"
+                                    readonly
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].RID)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                            <div class = "KeyItem">
+                            Tool Number: 
+                            <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].ToolNumber"
+                                    placeholder="ProjectData[0].ToolNumber"
+                                    value= "ProjectData[0].ToolNumber"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].ToolNumber)">
+                                <mat-icon>content_copy</mat-icon>
+                                
+                                </button>
+                                </div>
+                            </div>
+                            <div class = "KeyItem">
+                                Tool Description: 
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].ToolDesc"
+                                    placeholder="ProjectData[0].ToolDesc"
+                                    value= "ProjectData[0].ToolDesc"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].ToolDesc)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = BottomRow>
+                            <div class = "leftitem">
+                            <div class = "KeyItem">
+                                Serial Numbers: 
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].RID"
+                                    placeholder="PProjectData[0].RID"
+                                    value= "ProjectData[0].RID"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].RID)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="RightItem">
+                            <div class = "Comments">
+                                Comments (Not Shared) 
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].RID"
+                                    placeholder="PProjectData[0].RID"
+                                    value= "ProjectData[0].RID"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].RID)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </mat-expansion-panel>
+        </div>
+
+        <div> <!-- Status Update-->
+            <mat-expansion-panel>
+                           
+                        <mat-expansion-panel-header>
+                           
+                        <mat-panel-title>
+                            Status Updates
+                        </mat-panel-title>
+                        </mat-expansion-panel-header>
+                           <div class="statloop1">
+                                <ng-container *ngFor="let Stat of Statusup; let isLast = last">
+                                    <div *ngIf="Stat.RID === Statusup[0].RID" class="Statloop">
+                                    <div class="statloopbt">
+                                        <div>
+                                        <button matButton class="newUpdate">Update</button>
+                                        </div>
+                                        <div class="textstat">
+                                        {{ Stat.DateOnly }}: {{ Stat.StatusUpdate }}
+                                        </div>
+                                        
+                                    </div>
+                                    <mat-divider *ngIf="!isLast" class="status-divider"></mat-divider>
+                                    </div>
+                                    <!-- Divider OUTSIDE the Statloop -->
+                                   
+                                </ng-container>
+                                 <button matButton class= "newUpdate" (click) = "openNewStatusUpdate(NewStatusUpdate, Statusup[0].RID)" > New Status</button>    
+                            </div>
+                                
+                        
+                    </mat-expansion-panel>
+        </div>
+
+        <div> <!-- Purchasing Info -->
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Purchasing Process Info
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class = GeneralInfo>
+                        <div class ="TopRow">
+                            <div class = "KeyItem">
+                                Delivery Date  
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].DeliveryDate"
+                                    placeholder="PProjectData[0].DeliveryDate"
+                                    value= "ProjectData[0].DeliveryDate"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].DeliveryDate)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                            <div class = "KeyItem">
+                            Purchase Order (PO):
+                            <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].PurchaseOrder"
+                                    placeholder="ProjectData[0].PurchaseOrder"
+                                    value= "ProjectData[0].PurchaseOrder"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].PurchaseOrder)">
+                                <mat-icon>content_copy</mat-icon>
+                                
+                                </button>
+                                </div>
+                            </div>
+                            <div class = "KeyItem">
+                                PRR / EODI 
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].PRREODI"
+                                    placeholder="ProjectData[0].PRREODI"
+                                    value= "ProjectData[0].PRREODI"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].PRREODI)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = BottomRow>
+                            <div class = "leftitem">
+                            <div class = "KeyItem">
+                                Quanity:
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].RID"
+                                    placeholder="PProjectData[0].RID"
+                                    value= "ProjectData[0].RID"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].RID)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="RightItem">
+                            <div class = "Comments">
+                                Charge Numbers:
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].ChargeNumber"
+                                    placeholder="PProjectData[0].ChargeNumber"
+                                    value= "ProjectData[0].ChargeNumber"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].ChargeNumber)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </mat-expansion-panel>
+        </div>
+
+        <div> <!-- Property -->
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Property Items
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class = GeneralInfo>
+                        <div class ="TopRow">
+                            <div class = "KeyItem">
+                                Tool Order: 
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].ToolOrder"
+                                    placeholder="PProjectData[0].ToolOrder"
+                                    value= "ProjectData[0].ToolOrder"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].ToolOrder)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                            <div class = "KeyItem">
+                            Contract Authorization 
+                            <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].PurchaseOrder"
+                                    placeholder="ProjectData[0].PurchaseOrder"
+                                    value= "ProjectData[0].PurchaseOrder"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].PurchaseOrder)">
+                                <mat-icon>content_copy</mat-icon>
+                                
+                                </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        
+                    </div>
+                </mat-expansion-panel>
+        </div>
+         <div> <!-- Request Info -->
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Request Info
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class = GeneralInfo>
+                        <div class ="TopRow">
+                            <div class = "KeyItem">
+                                Point of Contact:  
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].ReqName"
+                                    placeholder="POC"
+                                    value= "ProjectData[0].ReqName"
+                                    [disabled]="isDisabled"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].ReqName)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                            <div class = "KeyItem">
+                            Tool Number:
+                            <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].ToolNumber"
+                                    placeholder="Tool Number"
+                                    value= "ProjectData[0].ToolNumber"
+                                    [disabled]="isDisabled"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].ToolNumber)">
+                                <mat-icon>content_copy</mat-icon>
+                                
+                                </button>
+                                </div>
+                            </div>
+                            <div class = "KeyItem">
+                               Tool Description
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].ToolDesc"
+                                    placeholder="Tool Description"
+                                    value= "ProjectData[0].ToolDesc"
+                                    [disabled]="isDisabled"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].ToolDesc)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = TopRow>
+                            
+                            <div class = "KeyItem">
+                                Priority:
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].Priority"
+                                    placeholder="Priority"
+                                    value= "ProjectData[0].Priority"
+                                    [disabled]="isDisabled"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].RID)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                           
+                            <div class = "KeyItem">
+                               Tool Drawing Detail
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                    [(ngModel)] = "ProjectData[0].DETNum"
+                                    placeholder="Detail Number"
+                                    value= "ProjectData[0].DETNum"
+                                    [disabled]="isDisabled"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].DETNum)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                            <div class = "KeyItem">
+                               Quanity needed
+                                <div>
+                            <mat-form-field class="example-full-width">
+                                    <mat-label></mat-label>
+                                    <input matInput
+                                [(ngModel)] = "ProjectData[0].QTY"
+                                    placeholder="Quanity"
+                                    value= "ProjectData[0].QTY"
+                                    [disabled]="isDisabled"
+                                    >
+                            </mat-form-field>
+                            <button mat-icon-button (click)="copyText(ProjectData[0].QTY)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </mat-expansion-panel>
+        </div>
+         <div> <!-- Complete Project -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Complete Project Step
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class = GeneralInfo>
+                        <div class ="TopRow">
+                            <!--Tool Delivered Question-->
+                            <div class = "KeyItem">
+                                Tool Delivered 
+                                <div>
+                            <mat-form-field class="FormField">
+                            <mat-label></mat-label>
+                            <mat-select [(ngModel)]="ToolDeliverd">
+                                <mat-option [value]=1> Yes</mat-option>
+                                <mat-option [value]=2> No</mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                                </div>
+                            </div>
+                            <!--Tool Number Verfication-->
+                            <div class = "KeyItem">
+                            Tool Number Verification 
+                            <div>
+                            <ng-container *ngIf = 'VerifyCheck === null'>
+                            <button matButton class= "newUpdate" (click) = "openToolNumberVerify(ToolNumberVerify)"> Verify</button>
+                            </ng-container>
+                            <ng-container *ngIf = 'VerifyCheck !== null'>
+                               <div class = "checkmarkbox"> <mat-icon class = "checkmark">check</mat-icon> <div>{{VerifyCheck}}</div></div>
+                            <button matButton class= "newUpdate" (click) = "openToolNumberVerify(ToolNumberVerify)"> Verify</button>
+                            
+                            </ng-container>
+                            </div>
+                            </div>
+                            <!--SerialNumber Checking-->
+                            <div class = "KeyItem">
+                            Serial Number Input
+                            <div>
+                            <ng-container *ngIf = 'SerialNumbersInput.length === 0'>
+                            <button matButton class= "newUpdate" (click) = "openSerialNumbers(SerialNumbers)"> Input Serial Numbers</button>
+                            </ng-container>
+                            <ng-container *ngIf = 'SerialNumbersInput.length > 0'>
+                                <div class = "checkmarkbox"><mat-icon class = "checkmark">check</mat-icon><ng-container *ngFor = 'let serial of SerialNumbersInput'>
+                                    {{ serial }}
+                                </ng-container></div>
+                            <button matButton class= "SerialNumberInput" (click) = "openSerialNumbers(SerialNumbers)"> Input Serial Numbers</button>
+                            <button matButton class= "SerialNumberInput" (click) = "openSerialEditNumbers(SerialNumbersEdit)">Edit Serial Numbers</button>
+                        </ng-container>
+                            </div>
+                            </div>
+                            <!--Complete Button-->
+                            <div class = "completeButts">
+                                 <button class = "CompleteButton"  mat-flat-button style="background-color: #259203; color: white;" (click) = "CompleteProject(1)"  
+                                 [disabled]="(ToolDeliverd === 1 || ToolDeliverd === 0)&&(VerifyCheck === null || SerialNumbersInput.length === 0)"> Complete</button>
+                                 <button class = "CompleteButton"  mat-flat-button style="background-color: #921403; color: white;" (click) = "CompleteProject(2)" >Abandon</button> 
+                            </div>
+                            
+                        </div>
+
+                        
+                    </div>
+                </mat-expansion-panel>
+        </div>
+    </div>
+    </div>
+   
+
+    <!-- Drawer -->
+    <div class="drawer" [class.expanded]="isDrawerOpen">
+        <div class="drawer-handle" (click)="toggleDrawer()">
+        <!-- This is the thin area when closed -->
+        <span *ngIf="!isDrawerOpen">&#x25C0;</span> <!-- small arrow -->
+        <span *ngIf="isDrawerOpen">&#x25B6;</span> <!-- arrow to close -->
+        </div>
+        <div class="drawer-content">
+        <h2>To Do List  </h2>
+        <p></p>
+        <button (click)="toggleDrawer()">Close</button>
+        </div>
+    </div>
+    </div>
+    </div>
+
+<!--New Status Update Dialog-->
+<ng-template #NewStatusUpdate>
+    <div class = "textlabels">
+       <div class="StatHead"> New Status Update</div>
+        <div>
+            <mat-form-field class="StatusUPdateNewBox">
+                <mat-label></mat-label>
+                 <textarea matInput
+                [(ngModel)] ="NewStatusUpdateVar"
+                placeholder="NewStatusUpdateVar"
+                value= "NewStatusUpdateVar"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                matTextareaAutosize
+                matAutosizeMinRows="3"
+                matAutosizeMaxRows="10"
+                ></textarea>
+            </mat-form-field>
+            
+        </div>
+        </div>
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-flat-button color="primary" (click) = "SaveStatusUpdate()">Submit</button>
+
+    </mat-dialog-actions>
+</ng-template>
+
+<!--Serial Number Adding Dialog-->
+<ng-template #SerialNumbers>
+    <div class = "StatHead"> Serial Number Tracking</div>
+    <div class = "Subhead">Please type ONE serial number at a time</div>
+    <mat-dialog-content>
+    <div>
+    <div>Serial Number Input</div>
+     <mat-form-field class="example-full-width">
+        <mat-label></mat-label>
+        <input matInput
+        [(ngModel)] = "SerialNumberHolder"
+        placeholder="One Serial Number"
+        value= "SerialNumberHolder"
+        (keydown.enter)="SerialNumberHandling(1)"
+        >
+    </mat-form-field>
+  </div>
+  <div>
+     <button mat-flat-button color="primary" style="background-color: #259203; color: white;" (click) = SerialNumberHandling(1)>Enter</button>
+  </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button color="primary" mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+
+</ng-template>
+<ng-template #ToolNumberVerify>
+  <div class="StatHead">Tool Number Verification</div>
+  
+
+  <mat-dialog-content>
+
+    <div class="filters">
+      <div>Tool Number filters</div>
+      <div class="Filteroptions">
+
+        <div>
+          <mat-form-field class="FormField">
+            <mat-label>Program</mat-label>
+            <mat-select [(ngModel)]="ProgramCode">
+              <mat-option [value]="1">Yes</mat-option>
+              <mat-option [value]="2">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="FormField">
+            <mat-label>Tool Type</mat-label>
+            <mat-select [(ngModel)]="ToolType">
+              <mat-option [value]="1">Yes</mat-option>
+              <mat-option [value]="2">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <div>Select Tool Number Below</div>
+      <div>
+        <mat-form-field class="ToolPick">
+          <mat-label>Tool Number</mat-label>
+          <mat-select [(ngModel)]="VerifyCheck">
+            <mat-option [value]="1">Yes</mat-option>
+            <mat-option [value]="2">No</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click) = ResetToolNumber()>Cancel</button>
+    <button mat-flat-button color="primary" mat-dialog-close>Verify</button>
+  </mat-dialog-actions>
+
+</ng-template>
+<ng-template #SerialNumbersEdit>
+    <div class = "StatHead"> Current Serial Numbers</div>
+    <div class = "SubHead"> Edit Below Serial Numbers</div>
+    <div class = "scrollcontent grid-container">
+    <ng-container *ngFor = "let Serial of SerialNumbersInput; let i = index">
+        <mat-dialog-content>
+        <mat-form-field>
+        <mat-label>Serial Number {{i+1}}</mat-label>
+        <input matInput class = "shorter"
+        [(ngModel)] = "SerialNumbersInput[i]"
+        placeholder=""
+        >
+         </mat-form-field>
+        </mat-dialog-content>
+    </ng-container>
+    </div>
+
+    <mat-dialog-actions align="end">
+             <button mat-flat-button color="primary" mat-dialog-close>Close</button>
+         </mat-dialog-actions>
+</ng-template>

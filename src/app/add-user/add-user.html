@@ -1,0 +1,62 @@
+<div class = "banner">
+    <div class = "bannertext"> Lockheed Martin PCO Tooling </div>
+</div>
+<div class = "NameInp">
+    <div class = "FirstName">
+        <div class =FirstNamePrompt> First Name</div>
+        <div class = FirstNameBox>
+            <mat-form-field class="example-full-width">
+                <mat-label>First Name</mat-label>
+                <input matInput [(ngModel)] ="UserInfo.NewFirst" placeholder="" value="">
+            </mat-form-field>
+        </div>
+</div>
+
+<div class = "LastName">
+    <div class =LastNamePrompt> Last Name</div>
+    <div class = LastNameBox>
+        <mat-form-field class="example-full-width">
+        <mat-label>Last Name</mat-label>
+        <input matInput [(ngModel)] ="UserInfo.NewLast" placeholder="" value="">
+  </mat-form-field>
+    </div>
+</div>
+</div>
+<div class = "LmNum">
+    <div class =LmNumPrompt> LM Employee Number</div>
+    <div class = LmNumBox>
+        <mat-form-field class="example-full-width">
+            <mat-label>Employee ID without "e"</mat-label>
+            <input matInput 
+            
+            [(ngModel)] ="UserInfo.NewLmNum" 
+            placeholder="" 
+            value=""
+            (keypress)="allowNumbersOnly($event)">
+        </mat-form-field>
+    </div>
+</div>
+
+<div class = "submit">
+        <button matButton="filled" class="SubmitButton" (click) = "Pullinfo()">
+            Add New Tooling Engineer
+        </button>
+    </div>
+
+<!--<div class = "testing">
+    <div >First Name: {{UserInfo.NewFirst}}</div>
+    <div> Last Name: {{UserInfo.NewLast}}</div>
+    <div> Employee Number: {{UserInfo.NewLmNum}}</div>
+</div>-->
+
+
+
+
+
+
+
+<div class="footer">
+    <div class = "creed">
+        Do What's Right - Respect Others - Perform with Excellence
+    </div>
+</div>

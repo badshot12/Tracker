@@ -1,0 +1,142 @@
+.Screen{
+    display: flex;
+    height: 100vh;
+}
+.banner{
+    display: flex;
+    justify-content: center;
+     align-items: center;  
+    flex-direction: row;
+    margin-top: 0%;
+    border-BOTTOM: 2px solid;
+    padding: 10px;
+    background-color: rgb(0, 52, 120);
+    flex: 1; /* takes all available space */
+    
+}
+
+.bannertext{
+    font-size: 3em;
+    font-weight: 500;
+    color: white;
+    flex: 1; /* takes all available space */
+    
+}
+.banner-profile {
+  width: 3%;
+  height: auto;         /* let the image scale correctly */
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  display: block;       /* safe for images */
+  padding: .5%;
+  margin-left: auto;
+}
+
+.Sidebar{
+    display:flex;
+    flex-direction: column;
+    margin-top:0%;
+    width: 5%;
+    height: 100%;
+    background-color: rgb(0, 52, 120);
+    border: 2px solid;
+    border-color: black;
+    color:white;
+}
+.BacklogDesign{
+    gap: 5%;
+}
+.backlogDesignicon{
+    
+    color: white ;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* space between cards */
+    width: 100%;
+}
+
+.example-card {
+    width: 100%; /* full width */
+   
+}
+
+.horizontallist {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; /* spacing between list items */
+}
+
+.content {
+    padding: 10px 0; /* remove fixed height */
+}
+.Header{
+    display: flex;
+    justify-content: space-between; /* Pushes items to opposite ends */
+    align-items: center;  
+
+}
+
+.Project-Container{
+    width: 100%;
+    height: 20%;
+}
+.trythis{
+    height: 90%;
+}
+.newUpdate{
+    display: flex;
+    margin-top: 5%;
+}
+
+.statloopbt{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px; 
+    
+   
+    
+}
+.Statloop{
+    display: flex;
+    flex-direction: row;
+    white-space: normal; /* allows text to wrap normally */
+    overflow-wrap: break-word;    /* break long words if needed */
+  word-wrap: break-word; 
+  flex-wrap: wrap;
+  
+  justify-content: left;
+  align-items: center;
+  
+}
+.textstat{
+    flex: 1 1 auto;
+    white-space: normal; /* allows text to wrap normally */
+    overflow-wrap: break-word;    /* break long words if needed */
+  word-wrap: break-word;
+  justify-content: left;
+  align-items: center;
+   
+  
+}
+
+.status-divider {
+  width: 100%;   /* Make it stretch the full width */
+  height: 1px;   /* Ensure visible */
+  background-color: rgba(0,0,0,0.12); /* Default Angular Material color */
+  margin: 8px 0; /* Space around divider */
+}
+.StatusUPdateNewBox{
+    display:flex;
+
+    flex:1;
+    padding: 10%;
+}
+.StatHead{
+    font-size: 200%;
+    margin-top: 10%;
+}

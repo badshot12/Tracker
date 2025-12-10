@@ -1,0 +1,88 @@
+<div class = "banner">
+    
+     <div class = "bannertext"> PCO Tool Number Management
+      
+     </div>
+     <img src="assets/ToolingLogo.png" class="banner-profile">
+     
+</div>
+<div class = "Screen">
+    
+    <div class ="Sidebar">
+        Filters
+
+        <div class = "ProgramFilter">
+            <div> Filter Program</div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Program</mat-label>
+
+                    <mat-select [(ngModel)]="ProgramFilter">
+                        <mat-option [value]="0">No Filter</mat-option>
+                        <mat-option *ngFor="let program of ProgramInfo" [value]="program.PRID">
+                            
+                            {{ program.ProgramName }}
+                        </mat-option>
+                    </mat-select>
+
+                    </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Tool Type</mat-label>
+
+                    <mat-select [(ngModel)]="TooltypeFilter">
+                        <mat-option [value]="'None'">No Filter</mat-option>
+                        <mat-option *ngFor="let tooltype of ToolTypes" [value]="tooltype.ToolType">
+                            
+                            {{ tooltype.ToolType }}
+                        </mat-option>
+                    </mat-select>
+
+                    </mat-form-field>
+            </div>
+            <!--<div>
+                <mat-form-field class="ENumber">
+                    <mat-label>Employee Number (no e)</mat-label>
+                    <input matInput type="number" matInput [(ngModel)] ="ReqEnumberFilter" placeholder="No Filter" value="0" (blur)="refreshRender()">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="ReqNumFilter">
+                    <mat-label>Request Number</mat-label>
+                    <input matInput type="number" matInput [(ngModel)] ="ReqNumFilter" placeholder="No Filter" value="0" (blur)="refreshRender()">
+                </mat-form-field>
+            </div>
+        </div>-->
+    </div>
+    </div>
+    <div class ="workingspace">
+        <ng-container *ngFor ="let program of ProgramInfo" >
+            <ng-container *ngIf = "program.PRID === ProgramFilter || ProgramFilter === 0" >
+                <mat-expansion-panel >
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            {{ program.ProgramName}}
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header >
+                        
+            
+        
+                <ng-container *ngFor =" let tooltype of ToolTypes" >
+                    <ng-container *ngIf = " tooltype.ToolType === TooltypeFilter || TooltypeFilter === 'None'">
+                        <mat-expansion-panel >
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            {{ tooltype.ToolType }}
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header >
+                        </mat-expansion-panel>
+                    </ng-container>
+
+
+                </ng-container>
+                </mat-expansion-panel>
+        </ng-container>
+        </ng-container>
+    </div>
+</div>

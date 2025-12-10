@@ -1,0 +1,54 @@
+<div class = "banner">
+    
+     <div class = "bannertext"> New Tooling Request Info
+      
+     </div>
+     <img src="assets/ToolingLogo.png" class="banner-profile">
+     
+</div>
+<div class = "content">
+    <ng-container *ngIf ='ProjectInfo.Designitem === 1'>
+        <div class = "header">
+            <div class ="title">Request Number: {{ProjectInfo.RID}} has been Created</div>
+            <div class = "subtitle">Request type: Design Request</div>
+        </div>
+        <div class = "row">
+            <div class = "Item">Requestor Names: {{ProjectInfo.ReqName}}</div>
+            <div class = "Item">Requestor Employee Number {{ProjectInfo.ReqENumber}}</div>
+        </div>
+        <div class = "row">
+            <div class = "Item">Tool Number: {{ProjectInfo.ToolNumber}}</div>
+            <div class = "Item">Tool Name: {{ProjectInfo.ToolDesc}}</div>
+        </div>
+        <div class = "row">
+            <div class = "Item">Program: {{ProjectInfo.PRID}}</div>
+            <div class = "Item">Priority: {{ProjectInfo.Priority}}</div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf ='ProjectInfo.Designitem === 2'>
+        <div class = "header">
+            <div class ="title">Request Number: {{ProjectInfo.RID}} has been Created</div>
+            <div class = "subtitle">Request type: Sustainment Request</div>
+        </div>
+        <div class = "row">
+            <div class = "Item">Requestor Names: {{ProjectInfo.ReqName}}</div>
+            <div class = "Item">Requestor Employee Number {{ProjectInfo.ReqENumber}}</div>
+        </div>
+        <div class = "row">
+            <div class = "Item">Tool Number: {{ProjectInfo.ToolNumber}}</div>
+            <div class = "Item">Tool Name: {{ProjectInfo.ToolDesc}}</div>
+        </div>
+        <div class = "row">
+            <div class = "Item">Quanity Needed: {{ProjectInfo.QTY}}</div>
+            <div class = "Item">Tool Drawing Detail Number: {{ProjectInfo.DETNum}}</div>
+        </div>
+        <div class = "row">
+            <div class = "Item">Program: <mat-divider [vertical]="false"></mat-divider><div>{{ProjectInfo.PRID}}</div></div>
+            <div class = "Item">Priority: <div>{{ProjectInfo.Priority}}</div></div>
+        </div>
+    </ng-container>
+    <div class = "buttons">
+        <button mat-flat-button color="primary" class = "SubmitButton">Submit Another Request</button>
+        <button mat-flat-button color="primary" class = "SubmitButton">Project List Viewer</button>
+    </div>
+</div>

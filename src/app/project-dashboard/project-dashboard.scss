@@ -1,0 +1,272 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.Screen{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    
+}
+.banner{
+    display: flex;
+    justify-content: center;
+     align-items: center;  
+    flex-direction: row;
+    margin-top: 0%;
+    border-BOTTOM: 2px solid;
+    padding: 10px;
+    background-color: rgb(0, 52, 120);
+    flex: 0 0 auto;
+}
+.bannertext{
+    font-size: 3em;
+    font-weight: 500;
+    color: white;
+    flex: 1; /* takes all available space */
+    
+}
+.banner-profile {
+  width: 3%;
+  height: auto;         /* let the image scale correctly */
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  display: block;       /* safe for images */
+  padding: .5%;
+  margin-left: auto;
+}
+.Sidebar{
+    display:flex;
+    flex-direction: column;
+    margin-top:0%;
+    width: 5%;
+    
+    min-height: 100vh; /* lowest allowed height */
+    height: auto;
+    background-color: rgb(0, 52, 120);
+    border: 2px solid;
+    border-color: black;
+    color:white;
+}
+.BacklogDesign{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    margin-top: 30%;
+    font-size: 80%;
+}
+.backlogDesignicon{
+    
+    color: white ;
+}
+
+.titlespace{
+    display: flex;
+background-color: rgb(255, 255, 255);
+padding: 2%;
+justify-content:space-between;
+}
+.title {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;        /* space between ToolDesc and ToolNumber */
+    font-size: 2em;
+    font-weight: 500;
+}
+.ToolDesc, .ToolNumber {
+    margin: 0;        /* remove default margin */
+}
+.backtoproject{
+    display: flex;
+    flex: 1;
+    justify-content: left;
+}
+.SaveBut{
+    display: flex;
+    flex: 1;
+    justify-content: right;
+}
+
+.statloopbt{ 
+    display: flex; 
+    flex-direction: row;
+     align-items: center;
+      gap: 20px; } 
+
+.Statloop{ display: flex; 
+    flex-direction: row; 
+    white-space: normal; /* allows text to wrap normally */ 
+    overflow-wrap: break-word; /* break long words if needed */ 
+    word-wrap: break-word; 
+    flex-wrap: wrap; 
+    justify-content: left; 
+    align-items: center; }
+
+
+.workingspace{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh; /* lowest allowed height */
+    height: auto;
+}
+.GeneralInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* space between each field */
+    margin-top: 1%;
+    
+    
+}
+.TopRow{
+    display:flex;
+    
+}
+.BottomRow{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 7.5%;
+}
+.LeftItem {
+  flex: 0 0 auto; /* only as wide as content */
+}
+
+.RightItem {
+  flex: 1 1 auto; /* take remaining space */
+}
+.RightItem mat-form-field {
+  width: 80%;
+ 
+}
+.KeyItem{
+    display: flex;
+     flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Comments{
+    display: flex;
+    flex-direction: column;
+}
+
+.Statloop{
+    display: flex;
+    flex-direction: row;
+    white-space: normal; /* allows text to wrap normally */
+    overflow-wrap: break-word;    /* break long words if needed */
+  word-wrap: break-word; 
+  flex-wrap: wrap;
+  
+  justify-content: left;
+  align-items: center;
+}
+
+.app-container {
+  display: flex;
+  flex: 1;
+  width: 100vw;
+  overflow: visible;
+}
+
+.main-content {
+  flex: 1;
+  transition: flex-basis 0.3s ease;
+  padding: 0px;
+}
+
+.drawer {
+  display: flex;
+  flex-direction: row;
+  transition: width 0.3s ease;
+  width: 1.1%; /* initial handle width */
+  min-width: 40px; /* minimum clickable area */
+  background-color: #f0f0f0;
+  border-left: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.drawer.expanded {
+  width: 20%; /* expanded drawer width */
+}
+
+.drawer-handle {
+  width: 20px;
+  background-color: #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+
+.drawer-content {
+  flex: 1;
+  padding: 20px;
+  display: none;
+}
+
+.drawer.expanded .drawer-content {
+  display: block;
+}
+.textlabels{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+}
+.StatusUPdateNewBox{
+    display:flex;
+
+    flex:1;
+    padding: 10%;
+}
+.StatHead{
+    font-size: 200%;
+    margin-top: 10%;
+}
+.CompleteButton:disabled{
+    background-color: rgba(97, 96, 96, 0.308) !important;
+}
+.filters{
+    display: flex;
+    flex-direction: column;
+
+}
+.Filteroptions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.ToolPick{
+    width: 90%;
+}
+.scrollcontent{
+     max-height: 300px; /* adjust to how tall you want the dialog content */
+    overflow-y: auto;  /* enables vertical scroll */
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two equal columns */
+  gap: 10px; /* space between inputs */
+}
+.checkmarkbox{
+    display: flex;
+    justify-content: center;
+}
+.checkmark{
+    display: flex;
+    color: green;
+}
+.completeButts{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1%;
+}
+

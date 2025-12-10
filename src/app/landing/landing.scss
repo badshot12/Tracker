@@ -1,0 +1,92 @@
+.banner{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 0%;
+    border-BOTTOM: 2px solid;
+    padding: 60px;
+    background-color: rgb(0, 52, 120);
+    
+}
+
+.bannertext{
+    font-size: 3em;
+    font-weight: 500;
+    color: white;
+}
+
+
+.Prompt{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    font-size: 2em;
+    font-weight: 500;
+}
+.REQButtons{
+    display: flex;
+    margin-top: 3%;
+    justify-content: center;
+    gap: 10%;
+}
+
+.Replacement{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.DesignBut{
+    width: 20em;
+    height: 5em;
+}
+
+.ReplacementBut{
+    width: 20em;
+    height: 5em;
+}
+
+.Promptlog{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.Projectlog{
+    margin-top: 3%;
+}
+
+.ProjectlogBut{
+     width: 20em;
+    height: 5em;
+}
+
+
+
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* spread items left and right */
+    width: 100%;
+    position: relative; /* allows absolute centering of creed */
+    margin-top: 11.5%;
+    border-top: 2px solid;
+    padding: 10px;
+    background-color: rgb(0, 52, 120);
+    
+}
+
+.TEPortal{
+    font-weight: 100;
+    flex: 0 0 auto;
+}
+.creed{
+    color: white;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 20px;
+    white-space: nowrap;
+}

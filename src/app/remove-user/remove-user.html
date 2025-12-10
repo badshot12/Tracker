@@ -1,0 +1,34 @@
+<div class = "banner">
+    <div class = "bannertext"> Lockheed Martin PCO Tooling </div>
+</div>
+
+<div class = "header">
+    <div class = "Prompt">Please Select Person to Remove from below List</div>
+</div>
+
+<div class = "Nameselect">
+    <div class = "dropdown">
+        <mat-form-field >
+            <mat-select [(ngModel)]="selecteduser" placeholder="Select user">
+                <mat-option *ngFor ="let user of Names" [value] = "user">
+                       {{ user.UserFirst }} {{ user.UserLast }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class = "RemoveButton">
+        <div class = "RemoveButtonort">
+            <button class = "RemoveButton" mat-flat-button style="background-color: #b11207; color: white;"
+            (click) = "deleteuser()">
+                Remove
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div class="footer">
+    <div class = "creed">
+        Do What's Right - Respect Others - Perform with Excellence
+    </div>
+</div>
