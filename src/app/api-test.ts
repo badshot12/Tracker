@@ -11,7 +11,7 @@ export class ApiTest {
 
   public getData(){
     console.log("api gt data")
-    const actualUrl = this.apiUrl + '/users'
+    const actualUrl = this.apiUrl + '/users' // Testing
     return this.http.get<string[]>(actualUrl);
   }
 
