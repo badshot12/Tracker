@@ -1,0 +1,231 @@
+<div class = "banner">
+    
+     <div class = "bannertext"> {{UserName.UserFirst}}'s Drawing Board 
+      
+     </div>
+     <img src="assets/ToolingLogo.png" class="banner-profile">
+     
+</div>
+<div class = "Screen">
+    
+    <div class ="Sidebar">
+        SideBar
+        <!--<div class = "BacklogDesign"> <button matTooltip = "Backlog Project List" mat-icon-button (click) = "toBacklogDesign()" ><mat-icon class = "backlogDesignicon" >featured_play_list</mat-icon></button></div>
+        <div class = "BacklogDesign"> <button matTooltip = "Backlog Project List" mat-icon-button (click) = "ToolNumberGenRoute()" ><mat-icon class = "backlogDesignicon" >numbers</mat-icon></button>
+        Tool Number</div>
+        
+        <div class = "BacklogDesign"> <button matTooltip = "Remove From My Project List" mat-icon-button  ><mat-icon class = "backlogDesignicon" >history_edu</mat-icon></button>
+        Tool History</div>
+        <div class = "BacklogDesign"> <button matTooltip = "Remove From My Project List" mat-icon-button  ><mat-icon class = "backlogDesignicon" >build</mat-icon></button>
+        Tool Repair Report</div>
+        <div class = "BacklogDesign"> <button matTooltip = "Remove From My Project List" mat-icon-button  ><mat-icon class = "backlogDesignicon" >draw</mat-icon></button>
+        Drawing Review</div>-->
+    </div>
+<div class ="Project-Container">
+    <!-- Overview -->
+    <div class="card-container">
+        <mat-card class="example-card" appearance="outlined">
+                <mat-card-header class = "HeaderOverall">
+
+                    <mat-card-title class ="OverviewTitle">
+                        <div>Drawing Review Overview</div>
+                       
+
+                    </mat-card-title>
+                    <mat-card-subtitle></mat-card-subtitle>
+                    
+                     <div><button class = "CompleteButton"  (click) = "openNewDrawRev(NewReview)" mat-flat-button style="background-color: #259203; color: white;" >New Review</button></div>
+                </mat-card-header>
+                <mat-card-content class="content">
+                    <div class = "headeritem">
+                        <mat-card class = "cardHead">
+                            <mat-card-header class = "Header">
+                               <mat-card-title>Outbound Open Review Requests</mat-card-title>
+                            </mat-card-header>
+                            
+                            <div class  = "Prevnumber">5</div>
+                        </mat-card>
+                        
+                    </div>
+                    <div class = "headeritem">
+                        <mat-card class = "cardHead">
+                            <mat-card-header class = "Header">
+                               <mat-card-title> Inbound Open Review Requests</mat-card-title>
+                            </mat-card-header>
+                            <div class  = "Prevnumber">10</div>
+                        </mat-card>
+                    </div>
+                </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!-- Drawing Review Function and list-->
+    <div class="card-container">
+     <mat-expansion-panel [expanded]="true" > <!--Expansion panel for Outbound-->
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Outbound Open Drawing Review Items
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-card-content class="contentdrw">
+            <ng-container *ngFor = "let Invdr of DR">
+                <ng-container *ngIf = "Invdr.FromUID === uid && Invdr.FirstItem === 1">
+                    <mat-expansion-panel [expanded]="true" > <!--Looped all drawing Reviews-->
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+
+                            <div>{{Invdr.ToolNumber}} - {{Invdr.ToolDesc}}</div>
+                            <ng-container *ngIf = "Warnlogic(Invdr.DateSub, Invdr.DateNeed)">  <!--Within a day Warning-->
+                                <div><mat-icon class = "WarnIcon" matTooltip = "Action Needed Still" matTooltipPosition = "below" >warning_amber</mat-icon></div>
+                            </ng-container>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-card-content class="contentdrw">
+                       <!--Drawing Review Information Display-->
+                       <ng-container *ngFor = "let Revdr of DR; let i = index">
+                        <ng-container *ngIf = "Revdr.FromUID === uid && (Invdr.DID === Revdr.Revs || (Revdr.FirstItem === 1 && Revdr.DID === Invdr.DID) )">
+                       <mat-expansion-panel [expanded]="false" > <!--Drafts looping-->
+                            <mat-expansion-panel-header>
+                        
+                            <mat-panel-title>
+
+                            <div>{{Revdr.ToolNumber}} - {{Revdr.ToolDesc}}</div>
+                            <ng-container *ngIf = "Warnlogic(Invdr.DateSub, Invdr.DateNeed)">  <!--Within a day Warning-->
+                                <div><mat-icon class = "WarnIcon" matTooltip = "Action Needed Still" matTooltipPosition = "below" >warning_amber</mat-icon></div>
+                            </ng-container>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                        <mat-card class = "cardHead">
+                            <mat-card-header class = "Header">
+                               <mat-card-title>Review Revsion Info</mat-card-title>
+                            </mat-card-header>
+                            
+                            <div class = "table">
+                                <div class = "Column">
+                                    <div>Tool Name</div>
+                                    <mat-divider ></mat-divider>
+                                    <div>{{Revdr.ToolDesc}}</div>
+                                </div>
+                                <mat-divider [vertical]="true"></mat-divider>
+                                <div class = "Column">
+                                    <div>Sender</div>
+                                    <mat-divider ></mat-divider>
+                                    <div>{{Revdr.FromName}}</div>
+                                </div>
+                                <mat-divider [vertical]="true"></mat-divider>
+                                 <div class = "Column">
+                                    <div>Reviewer</div>
+                                    <mat-divider ></mat-divider>
+                                    <div>{{Revdr.ToName}}</div>
+                                </div>
+                                <mat-divider [vertical]="true"></mat-divider>
+                                 <div class = "Column">
+                                    <div>Date Sent</div>
+                                    <mat-divider ></mat-divider>
+                                    <div>{{Revdr.DateSub}}</div>
+                                </div>
+                                <mat-divider [vertical]="true"></mat-divider>
+                                 <div class = "Column">
+                                    <div>Need by Date</div>
+                                    <mat-divider ></mat-divider>
+                                    <div>{{Revdr.DateNeed}}</div>
+                                </div>
+                            </div>
+                        </mat-card>
+                        <mat-expansion-panel [expanded]="true" >
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    File Information
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-card-content class="contentdrw">
+                                Items for Uploading files
+                        </mat-card-content>
+                        </mat-expansion-panel>
+                        
+                    </mat-expansion-panel>
+                    </ng-container>
+                        </ng-container>
+                    </mat-card-content>
+                     <div class = "CompleteBut"><button class = "CompleteButton"  mat-flat-button style="background-color: #259203; color: white;" >Complete Review</button></div>
+    </mat-expansion-panel>
+        </ng-container>
+    </ng-container>
+        </mat-card-content>
+    </mat-expansion-panel>
+    </div>
+</div>
+
+<ng-template #NewReview>
+    <div>
+        <div class = "reviewtitle"> Request Drawing Review</div>
+        <div class = "row">
+            <div class = "dropdown">
+                <div> Designer: </div>
+                <mat-form-field >
+                    <mat-select [(ngModel)]="DesignerUser" placeholder="DesignerUser">
+                        <mat-option *ngFor ="let user of Names" [value] = "user.UID">
+                            {{ user.UserFirst }} {{ user.UserLast }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class = "dropdown">
+                <div> Reviwer: </div>
+                <mat-form-field >
+                    <mat-select [(ngModel)]="selecteduser" placeholder="Reviewer">
+                        <mat-option *ngFor ="let user of Names" [value] = "user.UID">
+                            {{ user.UserFirst }} {{ user.UserLast }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class = "row">
+            <!--<div class = "textlabels">
+            Tool Number
+            <mat-form-field class="example-full-width">
+                <mat-label></mat-label>
+                <input matInput
+                [(ngModel)] = "selectedProject.ToolNumber"
+                placeholder="selectedProject.ToolNumber"
+                value= "selectedProject.ToolNumber"
+                >
+            </mat-form-field>
+        </div>
+        <div class = "textlabels">
+            Tool Description
+            <mat-form-field class="example-full-width">
+                <mat-label></mat-label>
+                <input matInput
+                [(ngModel)] = "selectedProject.ToolDesc"
+                placeholder="selectedProject.ToolDesc"
+                value= "selectedProject.ToolDesc"
+                >
+            </mat-form-field>
+        </div>-->
+        </div>
+        <div class = "row">
+            <div class = "dropdown">
+                <div> Need by Date </div>
+                <mat-form-field>
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class = "dropdown">
+                <div> Reviwer: </div>
+                <mat-form-field >
+                    <mat-select [(ngModel)]="selecteduser" placeholder="Reviewer">
+                        <mat-option *ngFor ="let user of Names" [value] = "user.UID">
+                            {{ user.UserFirst }} {{ user.UserLast }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -70,6 +70,7 @@ EditdialogRef: any; // in your component class
 selectedProject: ProjectDataInt = {} as ProjectDataInt;
 NewStatusUpdateVar:number|null = 1;
 
+
   ngOnInit(): void{
     
     this.route.paramMap.subscribe(params => {

@@ -9,6 +9,11 @@
 <div class = "Screen">
     
     <div class ="Sidebar">
+    
+    <div class = "TNGen">
+        <div class = "header">Tool Number Generator</div>
+        <button mat-flat-button style="background-color: #00881d; color: white;" class = "projectdeletebut" (click) = "openNewTNDialog(NewTNDialog)" > New Tool Number</button>
+    </div>
         Filters
 
         <div class = "ProgramFilter">
@@ -69,20 +74,296 @@
             
         
                 <ng-container *ngFor =" let tooltype of ToolTypes" >
-                    <ng-container *ngIf = " tooltype.ToolType === TooltypeFilter || TooltypeFilter === 'None'">
+                    <ng-container *ngIf = "( tooltype.ToolType === TooltypeFilter || TooltypeFilter === 'None') && tooltype.ToolType !== 'MISC'">
                         <mat-expansion-panel >
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             {{ tooltype.ToolType }}
+                                            
                                         </mat-panel-title>
                                     </mat-expansion-panel-header >
+                            <ng-container *ngFor = "let toolnumber of ToolNumbers">
+                                <ng-container *ngIf = "(toolnumber.Type === tooltype.ToolType && program.PRID === toolnumber.PRID && toolnumber.Delete === 0)">
+                                   <mat-expansion-panel >
+                                    <mat-expansion-panel-header>
+                                        
+                                        <mat-panel-title>
+                                            {{toolnumber.Code}}-{{toolnumber.Type}}-{{toolnumber.UniqueID}} - {{toolnumber.ToolName}} 
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header >
+                                        <div class = "projectbuttons">
+                                                    <button matButton = "filled" class = "editAssign" (click) = "openNameDialog(EditNameDialog,toolnumber)"> Edit Name</button>
+                                                    <button matButton = "filled" class = "editAssign"> See History</button>
+                                                    <button mat-flat-button style="background-color: #b11207; color: white;" class = "projectdeletebut" (click) = "ToolNumberDelete(toolnumber)"> Delete</button>
+                                                </div>
+                                     </mat-expansion-panel>
+                                </ng-container>
+                                
+                            </ng-container>
                         </mat-expansion-panel>
+                        
                     </ng-container>
-
-
                 </ng-container>
+                <mat-expansion-panel >
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Non-Standard Tool Number
+                                </mat-panel-title>
+                            </mat-expansion-panel-header >
+                                <ng-container *ngFor = "let toolnumber of ToolNumbers">
+                                <ng-container *ngIf = "(toolnumber.Type === null && program.PRID === toolnumber.PRID && toolnumber.Delete === 0)">
+                                   <mat-expansion-panel >
+                                    <mat-expansion-panel-header>
+                                        
+                                        <mat-panel-title>
+                                            {{toolnumber.Misc}} - {{toolnumber.ToolName}} 
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header >
+                                        <div class = "projectbuttons">
+                                                    <button matButton = "filled" class = "editAssign" (click) = "openNameDialog(EditNameDialog,toolnumber)"> Edit Name</button>
+                                                    <button matButton = "filled" class = "editAssign"> See History</button>
+                                                    <button mat-flat-button style="background-color: #b11207; color: white;" class = "projectdeletebut" (click) = "ToolNumberDelete(toolnumber)"> Delete</button>
+                                                </div>
+                                     </mat-expansion-panel>
+                                </ng-container>
+                                
+                            </ng-container>
+
+                        </mat-expansion-panel>
+                
                 </mat-expansion-panel>
         </ng-container>
         </ng-container>
     </div>
 </div>
+
+<ng-template #EditNameDialog>
+    <h2 mat-dialog-title> Edit Below Tool Number Description</h2>
+    <mat-dialog-content>
+        <mat-form-field class="example-full-width">
+            <mat-label>Tool Description</mat-label>
+            <input matInput
+            [(ngModel)] = "TN_EditedName.ToolName"
+            placeholder = "TN_EditedName.ToolName"
+            value = "TN_EditedName.ToolName"
+            >
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click) = SaveName()>Save</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #NewTNDialog>
+    <h2 mat-dialog-title> Tool Number Generator</h2>
+    <div>Is this a standard Tool Number</div>
+    <mat-form-field appearance="fill">
+        <mat-label>Is this a Standard Tool Number</mat-label>
+        <mat-select [(ngModel)] = "MISCCheck">
+            <mat-option [value] = "1"> Yes</mat-option>
+            <mat-option [value] = "2"> No</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!--Non Standard Tol Numbers-->
+    <ng-container *ngIf ="MISCCheck === 1">
+        <div>Please Fill Select all options below</div>
+        <div class = "row">
+            <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Select Program</mat-label>
+
+                <mat-select [(ngModel)]="NTN_Program">
+                    <mat-option *ngFor="let program of ProgramInfo" [value]="program.PRID">
+                        
+                        {{ program.ProgramName }}
+                    </mat-option>
+                </mat-select>                                                                 
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Tool Type</mat-label>
+
+                    <mat-select [(ngModel)]="NTN_ToolType">
+                        <mat-option *ngFor="let tooltype of ToolTypes" [value]="tooltype.ToolType">
+                            {{tooltype.ToolType}}
+                        </mat-option>
+                    </mat-select>
+                    </mat-form-field>
+            </div>
+            
+            
+        </div>
+        <mat-form-field class="example-full-width">
+            <mat-label>Tool Description</mat-label>
+            <input matInput
+            [(ngModel)] = "NTN_ToolName"
+            placeholder = "Tool Description"
+            value = "NTN_ToolName"
+            >
+        </mat-form-field>
+        <div>
+            <mat-divider ></mat-divider>
+        </div>
+        <ng-container *ngIf = 'ToolNumGenClick === 0'>
+        <div>
+            <div class = "preview">Tool Number Preview</div>
+                <ng-container *ngFor ="let program of ProgramInfo">
+                    <ng-container *ngIf = "NTN_Program === program.PRID && NTN_ToolType !== null">
+                        <div class = "previewhead" >Tool Number: </div>
+                        <div>{{program.ProgramCode}}-{{ NTN_ToolType }}-XXXXXX</div>
+                        <div class = "previewhead">Tool Description:</div>
+                        <div>{{NTN_ToolName}}</div>
+                </ng-container>
+            </ng-container>
+        </div>
+        <ng-container *ngIf = 'NTN_ToolName !== "" && NTN_Program !== null && NTN_ToolType !== null'>
+            <mat-dialog-actions>
+                <button mat-button mat-dialog-close>Cancel</button>
+                <button mat-flat-button color="primary" (click) = "ToolNumGen()">Generate</button>
+            </mat-dialog-actions>
+        </ng-container>
+        </ng-container>
+            <ng-container *ngIf = 'ToolNumGenClick === 1'>
+                <div class = "Waiting">! Please Wait as a Tool Number is Generated !</div>
+            </ng-container>
+            <ng-container *ngIf = 'ToolNumGenClick === 3'>
+                <div class = "preview">Generated Tool Number Below</div>
+                <div class = "ToolNumberDis">
+                    <ng-container *ngFor = "let toolnumber of ToolNumbers">
+                    <ng-container *ngIf = "toolnumber.TID === maxTID">
+                    <div class ="ToolNumberDis">
+                        <div class = "INV">
+                        <div>
+                        {{toolnumber.Code}}-{{ toolnumber.Type }}-{{toolnumber.UniqueID}}
+                        </div>
+                        <div><button mat-icon-button (click)="copyTextTN(toolnumber.Code,toolnumber.Type,toolnumber.UniqueID)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button></div>
+                        </div>
+                        <div class = "INV">
+                        <div>{{toolnumber.ToolName}}</div>
+                        <div><button mat-icon-button (click)="copyText(toolnumber.ToolName)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button></div>
+                        </div>
+                    </div>
+                    
+                    </ng-container>
+                    </ng-container>
+                    
+                    
+                    </div>
+                <mat-dialog-actions>
+                    
+                    <button mat-flat-button color="primary" mat-dialog-close (click) = "DialogRefresh()">Close</button>
+                </mat-dialog-actions>
+
+
+
+            </ng-container>
+    </ng-container>
+    <!--Non Standard Tol Numbers-->
+    
+    <ng-container *ngIf ="MISCCheck === 2">
+        
+        <div class = "content">
+            <div class = "warningmsg">
+                <div > <mat-icon class = "WarnIcon" matTooltip = "Please only use are trying to make tool number in standard XX-XX-XXXXXX format!! " matTooltipPosition = "below" >warning_amber</mat-icon></div>
+                <div>Please only use this option if you are trying to make a tool number </div><div> that is NOT the standard XX-XX-XXXXXX format!!</div>
+            </div>
+            <div>Please Select Program</div>
+             <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Select Program</mat-label>
+
+                <mat-select [(ngModel)]="NTN_Program">
+                    <mat-option *ngFor="let program of ProgramInfo" [value]="program.PRID">
+                        
+                        {{ program.ProgramName }}
+                    </mat-option>
+                </mat-select>                                                                 
+                </mat-form-field>
+            </div>
+            <div>Please Enter Desired Tool Number</div>
+           <mat-form-field class="example-full-width">
+                <mat-label>Tool Number</mat-label>
+                <input matInput
+                [(ngModel)] = "MISC_ToolNum"
+                placeholder = "Tool Number"
+                value = "MISC_ToolNum"
+                >
+            </mat-form-field>
+            <div>Please enter Tool Description</div>
+            <mat-form-field class="example-full-width">
+            <mat-label>Tool Description</mat-label>
+            <input matInput
+            [(ngModel)] = "NTN_ToolName"
+            placeholder = "Tool Description"
+            value = "NTN_ToolName"
+            >
+        </mat-form-field>
+        <div>
+            <mat-divider ></mat-divider>
+        </div>
+        <ng-container *ngIf = 'ToolNumGenClick === 0'>
+            <div>
+                <div class = "preview">Tool Number Perview</div>
+                    <div class = "previewhead" >Tool Number: </div>
+                    <div>{{MISC_ToolNum}}</div>
+                    <div class = "previewhead">Tool Description:</div>
+                    <div>{{NTN_ToolName}}</div>
+            </div>
+            <ng-container *ngIf = 'NTN_ToolName !== "" && MISC_ToolNum !== null '>
+                <mat-dialog-actions>
+                    <button mat-button mat-dialog-close>Cancel</button>
+                    <button mat-flat-button color="primary" (click) = "ToolNumGen()">Generate</button>
+                </mat-dialog-actions>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf = 'ToolNumGenClick === 1'>
+                <div class = "Waiting">! Please Wait as a Tool Number is Generated !</div>
+            </ng-container>
+            <ng-container *ngIf = 'ToolNumGenClick === 3'>
+                <div class = "preview">Generated Tool Number Below</div>
+                <div class = "ToolNumberDis">
+                    <ng-container *ngFor = "let toolnumber of ToolNumbers">
+                    <ng-container *ngIf = "toolnumber.TID === maxTID">
+                    <div class ="ToolNumberDis">
+                        <div class = "INV">
+                        <div>
+                        {{toolnumber.Misc}}
+                        </div>
+                        <div><button mat-icon-button (click)="copyText(toolnumber.Misc)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button></div>
+                        </div>
+                        <div class = "INV">
+                        <div>{{toolnumber.ToolName}}</div>
+                        <div><button mat-icon-button (click)="copyText(toolnumber.ToolName)">
+                                <mat-icon>content_copy</mat-icon>
+                                </button></div>
+                        </div>
+                    </div>
+                    
+                    </ng-container>
+                    </ng-container>
+                    
+                    
+                    </div>
+                <mat-dialog-actions>
+                    
+                    <button mat-flat-button color="primary" mat-dialog-close (click) = "DialogRefresh()">Close</button>
+                </mat-dialog-actions>
+
+
+
+            </ng-container>
+
+        </div>
+    </ng-container>
+    
+    
+</ng-template>

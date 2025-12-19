@@ -9,6 +9,7 @@ import { BacklogDesign } from './backlog-design/backlog-design';
 import { NewRequest } from './new-request/new-request';
 import { RequestComplete } from './request-complete/request-complete';
 import { ToolNumberGen } from './tool-number-gen/tool-number-gen';
+import { DrawingReview } from './drawing-review/drawing-review';
 
 export const routes: Routes = [
 {path: '', component: Landing}, 
@@ -20,5 +21,6 @@ export const routes: Routes = [
 {path: 'BacklogDesign/:UID',component: BacklogDesign},
 {path: 'NewRequest', component: NewRequest},
 {path: 'RequestComplete', component: RequestComplete},
-{path: 'ToolNumberGen/:UID', component: ToolNumberGen}
+{path: 'ToolNumberGen/:UID', component: ToolNumberGen},
+{path: 'DrawingReview/:UID', component: DrawingReview},
 ];

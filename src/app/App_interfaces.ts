@@ -1,8 +1,11 @@
+import { NullLiteral } from "typescript";
+
 //Used in Backlog-design
 export interface ProgramInfoInt{ 
   PRID: number;
   ProgramName: string;
   Building: string;
+  ProgramCode: string;
 }
 //Used in Backlog-design
 export interface BacklogProjectListInt{ 
@@ -80,10 +83,36 @@ export interface ToolNumber{
   TID: number | null;
   Code: string |null;
   Type: string |null;
-  UniqueID: number | null;
+  UniqueID: string | null;
   Misc: string | null;
   PRID: number | null;
   RIDS: number[] | null;
   FID: number[] | null;
   ToolName: string | null;
+  Delete: number | null;
+}
+
+export interface NumberGen {
+  NTNobj_Program: number | null;
+  NTNobj_ToolType: string | null;
+  NTNobj_ToolName: string | null;
+  NTNobj_Toolnum: string | null;
+  NTNobj_Code:string | null;
+
+}
+export interface DrawingReviewINT {
+  DID: number | null;
+  FromUID: number | null;
+  ToUID: number | null;
+  ToolNumber: string | null;
+  ToolDesc: string | null;
+  FirstItem:number | null;
+  Complete: number | null;
+  Checked: number | null;
+  DateSub: string | null;
+  DateNeed: string | null;
+  FileName: string | null;
+  Revs: number | null;
+  FromName:string|null;
+  ToName: string|null;
 }

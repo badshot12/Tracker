@@ -115,5 +115,13 @@ SaveStatusUpdate() {
   });
 }
 
+ToolNumberGenRoute(){
+  this.router.navigate(['/ToolNumberGen', this.uid]);
+}
+DrawingReviewRoute(){
+  this.router.navigate(['/DrawingReview',this.uid])
+}
+
+
 }
 

@@ -11,7 +11,17 @@
     <div class ="Sidebar">
         SideBar
         <div class = "BacklogDesign"> <button matTooltip = "Backlog Project List" mat-icon-button (click) = "toBacklogDesign()" ><mat-icon class = "backlogDesignicon" >featured_play_list</mat-icon></button></div>
+        <div class = "BacklogDesign"> <button matTooltip = "Backlog Project List" mat-icon-button (click) = "ToolNumberGenRoute()" ><mat-icon class = "backlogDesignicon" >numbers</mat-icon></button>
+        Tool Number</div>
+        
+        <div class = "BacklogDesign"> <button matTooltip = "Remove From My Project List" mat-icon-button  ><mat-icon class = "backlogDesignicon" >history_edu</mat-icon></button>
+        Tool History</div>
+        <div class = "BacklogDesign"> <button matTooltip = "Remove From My Project List" mat-icon-button  ><mat-icon class = "backlogDesignicon" >build</mat-icon></button>
+        Tool Repair Report</div>
+        <div class = "BacklogDesign"> <button matTooltip = "Remove From My Project List" mat-icon-button  (click) = "DrawingReviewRoute()"><mat-icon class = "backlogDesignicon" >draw</mat-icon></button>
+        Drawing Review</div>
     </div>
+    
         <div class ="Project-Container">
             
             <mat-accordion class="example-headers-align" multi>

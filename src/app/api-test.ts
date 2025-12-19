@@ -102,4 +102,25 @@ public ToolNumbers(){
   const actualUrl = this.apiUrl + '/ToolNumbers';
   return this.http.get<any>(actualUrl)
 }
+public ToolNumberDeleteapi(ToolNumberobj:object){
+   const actualUrl = this.apiUrl + '/ToolNumberDelete';
+  return this.http.post<object>(actualUrl,ToolNumberobj);
+}
+public SaveTN_Name(TN_Name: object){
+  const actualUrl = this.apiUrl + '/SaveTN_Name';
+  return this.http.post<object>(actualUrl,TN_Name);
+}
+public NumberGenerator(ToolNumberInfo: object){
+  const actualUrl = this.apiUrl + '/NumberGenerator';
+  return this.http.post<object>(actualUrl,ToolNumberInfo);
+}
+public getDrawingReviewInfo(UID: number){
+  const actualUrl = this.apiUrl + '/getDrawingReview';
+  return this.http.post<any>(actualUrl,UID);
+}
+
+
+
+
+
 }
