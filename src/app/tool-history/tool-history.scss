@@ -1,0 +1,39 @@
+.banner{
+    display: flex;
+    justify-content: center;
+     align-items: center;  
+    flex-direction: row;
+    margin-top: 0%;
+    border-BOTTOM: 2px solid;
+    padding: 10px;
+    background-color: rgb(0, 52, 120);
+}
+.bannertext{
+    font-size: 3em;
+    font-weight: 500;
+    color: white;
+    flex: 1; /* takes all available space */
+    
+}
+.banner-profile {
+  width: 3%;
+  height: auto;         /* let the image scale correctly */
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  display: block;       /* safe for images */
+  padding: .5%;
+  margin-left: auto;
+}
+.Sidebar{
+    display:flex;
+    flex-direction: column;
+    margin-top:0%;
+    width: 8%;
+    min-height: 100vh; /* lowest allowed height */
+    height: auto;
+    background-color: rgb(0, 52, 120);
+   /* border: 2px solid;
+    border-color: black;*/
+    color:white;
+}

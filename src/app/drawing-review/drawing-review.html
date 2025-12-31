@@ -34,7 +34,7 @@
                     </mat-card-title>
                     <mat-card-subtitle></mat-card-subtitle>
                     
-                     <div><button class = "CompleteButton"  (click) = "openNewDrawRev(NewReview)" mat-flat-button style="background-color: #259203; color: white;" >New Review</button></div>
+                     <div><button class = "CompleteButton"  (click) = "openNewDrawRev(NewReview,0,0)" mat-flat-button style="background-color: #259203; color: white;" >New Review</button></div>
                 </mat-card-header>
                 <mat-card-content class="content">
                     <div class = "headeritem">
@@ -43,7 +43,7 @@
                                <mat-card-title>Outbound Open Review Requests</mat-card-title>
                             </mat-card-header>
                             
-                            <div class  = "Prevnumber">5</div>
+                            <div class  = "Prevnumber">{{countOut}}</div>
                         </mat-card>
                         
                     </div>
@@ -52,7 +52,7 @@
                             <mat-card-header class = "Header">
                                <mat-card-title> Inbound Open Review Requests</mat-card-title>
                             </mat-card-header>
-                            <div class  = "Prevnumber">10</div>
+                            <div class  = "Prevnumber">{{countIn}}</div>
                         </mat-card>
                     </div>
                 </mat-card-content>
@@ -64,18 +64,18 @@
      <mat-expansion-panel [expanded]="true" > <!--Expansion panel for Outbound-->
         <mat-expansion-panel-header>
             <mat-panel-title>
-                Outbound Open Drawing Review Items
+                Designer Items
             </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-card-content class="contentdrw">
             <ng-container *ngFor = "let Invdr of DR">
-                <ng-container *ngIf = "Invdr.FromUID === uid && Invdr.FirstItem === 1">
+                <ng-container *ngIf = "Invdr.FromUID === uid && Invdr.FirstItem === 1 && Invdr.Complete === 0">
                     <mat-expansion-panel [expanded]="true" > <!--Looped all drawing Reviews-->
                     <mat-expansion-panel-header>
                         <mat-panel-title>
 
                             <div>{{Invdr.ToolNumber}} - {{Invdr.ToolDesc}}</div>
-                            <ng-container *ngIf = "Warnlogic(Invdr.DateSub, Invdr.DateNeed)">  <!--Within a day Warning-->
+                            <ng-container *ngIf = "Warnlogic(Invdr.DateSub, Invdr.DateNeed) ">  <!--Within a day Warning-->
                                 <div><mat-icon class = "WarnIcon" matTooltip = "Action Needed Still" matTooltipPosition = "below" >warning_amber</mat-icon></div>
                             </ng-container>
                         </mat-panel-title>
@@ -88,7 +88,7 @@
                             <mat-expansion-panel-header>
                         
                             <mat-panel-title>
-
+                            <div><mat-icon *ngIf = " Revdr.RedFileName !== null" matTooltip = "Redlines Recivied" matTooltipPosition = "below" >check_circle</mat-icon></div>
                             <div>{{Revdr.ToolNumber}} - {{Revdr.ToolDesc}}</div>
                             <ng-container *ngIf = "Warnlogic(Invdr.DateSub, Invdr.DateNeed)">  <!--Within a day Warning-->
                                 <div><mat-icon class = "WarnIcon" matTooltip = "Action Needed Still" matTooltipPosition = "below" >warning_amber</mat-icon></div>
@@ -138,22 +138,184 @@
                                     File Information
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <mat-card-content class="contentdrw">
-                                Items for Uploading files
-                        </mat-card-content>
+                            <!-- File Upload Area -->
+                        <div class = "downloadUpload">
+                           
+                                <div class = "download"> 
+                                    <div class = "downheader"> Document to be Reviewed </div>
+                                    <div class = "Downtext">{{Revdr.FileName}}</div>
+                                    <div class = "DownBut" ><button class = "CompleteButton"  (click) = "FileDownload(Revdr.FileName!)" mat-flat-button style="background-color: #259203; color: white;" >Download</button></div>
+                                </div>
+                           
+                                <mat-divider vertical class="divider"></mat-divider>
+                                
+                                <div class = "download"> 
+                                    <ng-container *ngIf = "Revdr.RedFileName !== null; else noFile">
+                                    <div class = "downheader"> Redlines </div>
+                                    <div class = "Downtext">{{Revdr.RedFileName}}</div>
+                                    <div class = "DownBut" ><button class = "CompleteButton"  (click) = "FileDownload(Revdr.RedFileName!)" mat-flat-button style="background-color: #259203; color: white;" >Download</button></div>
+                                    </ng-container>
+                                </div>
+                                
+                       
+                        </div>
                         </mat-expansion-panel>
                         
                     </mat-expansion-panel>
                     </ng-container>
                         </ng-container>
                     </mat-card-content>
-                     <div class = "CompleteBut"><button class = "CompleteButton"  mat-flat-button style="background-color: #259203; color: white;" >Complete Review</button></div>
-    </mat-expansion-panel>
+                    <div class = "InvRevBut">
+                        <div class = "CompleteBut" ><button class = "CompleteButton"  (click) = "openNewDrawRev(NewReview,Invdr.DID!,Invdr.ToUID!)" mat-flat-button style="background-color: #259203; color: white;" >New Draft</button></div>
+                         <div class = "CompleteBut"><button class = "CompleteButton"  (click) = CompleteDrwRev(Invdr.DID!) mat-flat-button style="background-color: #918700; color: white;" >Complete Review</button></div>
+                    </div>
+                        </mat-expansion-panel>
         </ng-container>
     </ng-container>
         </mat-card-content>
     </mat-expansion-panel>
     </div>
+    
+
+    <!-- InBound Reviews -->
+     <div class="card-container">
+     <mat-expansion-panel [expanded]="true" > <!--Expansion panel for Outbound-->
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Reviewer Items
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-card-content class="contentdrw">
+            <ng-container *ngFor = "let Invdr of DR">
+                <ng-container *ngIf = "Invdr.ToUID === uid && Invdr.FirstItem === 1 && Invdr.Complete === 0">
+                    <mat-expansion-panel [expanded]="true" > <!--Looped all drawing Reviews-->
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+
+                            <div>{{Invdr.ToolNumber}} - {{Invdr.ToolDesc}}</div>
+                            <ng-container *ngIf = "Warnlogic(Invdr.DateSub, Invdr.DateNeed) ">  <!--Within a day Warning-->
+                                <div><mat-icon class = "WarnIcon" matTooltip = "Action Needed Still" matTooltipPosition = "below" >warning_amber</mat-icon></div>
+                            </ng-container>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-card-content class="contentdrw">
+                       <!--Drawing Review Information Display-->
+                       <ng-container *ngFor = "let Revdr of DR; let i = index">
+                        <ng-container *ngIf = "Revdr.ToUID === uid && (Invdr.DID === Revdr.Revs || (Revdr.FirstItem === 1 && Revdr.DID === Invdr.DID) )">
+                       <mat-expansion-panel [expanded]="false" > <!--Drafts looping-->
+                            <mat-expansion-panel-header>
+                        
+                            <mat-panel-title>
+
+                            <div>{{Revdr.ToolNumber}} - {{Revdr.ToolDesc}}</div>
+                            <ng-container *ngIf = "Warnlogic(Invdr.DateSub, Invdr.DateNeed)">  <!--Within a day Warning-->
+                                <div><mat-icon class = "WarnIcon" matTooltip = "Action Needed Still" matTooltipPosition = "below" >warning_amber</mat-icon></div>
+                            </ng-container>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                        <mat-card class = "cardHead">
+                            <mat-card-header class = "Header">
+                               <mat-card-title>Review Revsion Info</mat-card-title>
+                            </mat-card-header>
+                            
+                            <div class = "table">
+                                <div class = "Column">
+                                    <div>Tool Name</div>
+                                    <mat-divider ></mat-divider>
+                                    <div>{{Revdr.ToolDesc}}</div>
+                                </div>
+                                <mat-divider [vertical]="true"></mat-divider>
+                                <div class = "Column">
+                                    <div>Designer</div>
+                                    <mat-divider ></mat-divider>
+                                    <div>{{Revdr.FromName}}</div>
+                                </div>
+                                <mat-divider [vertical]="true"></mat-divider>
+                                 <div class = "Column">
+                                    <div>Reviewer</div>
+                                    <mat-divider ></mat-divider>
+                                    <div>{{Revdr.ToName}}</div>
+                                </div>
+                                <mat-divider [vertical]="true"></mat-divider>
+                                 <div class = "Column">
+                                    <div>Date Sent</div>
+                                    <mat-divider ></mat-divider>
+                                    <div>{{Revdr.DateSub}}</div>
+                                </div>
+                                <mat-divider [vertical]="true"></mat-divider>
+                                 <div class = "Column">
+                                    <div>Need by Date</div>
+                                    <mat-divider ></mat-divider>
+                                    <div>{{Revdr.DateNeed}}</div>
+                                </div>
+                            </div>
+                        </mat-card>
+                        <mat-expansion-panel [expanded]="true" >
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    File Information
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <!-- File Upload Area -->
+                        <div class = "downloadUpload">
+                           
+                                <div class = "download"> 
+                                    <div class = "downheader"> Document to be Reviewed </div>
+                                    <div class = "Downtext">{{Revdr.FileName}}</div>
+                                    <div class = "DownBut" ><button class = "CompleteButton"  (click) = "FileDownload(Revdr.FileName!)" mat-flat-button style="background-color: #259203; color: white;" >Download</button></div>
+                                </div>
+                           
+                                <mat-divider vertical class="divider"></mat-divider>
+                                
+                                <div class = "download"> 
+                                    <ng-container *ngIf = "Revdr.RedFileName !== null; else noFileReviwer">
+                                    <div class = "downheader"> Redlines </div>
+                                    <div class = "Downtext">{{Revdr.RedFileName}}</div>
+                                    <div class = "DownBut" ><button class = "CompleteButton"  (click) = "FileDownload(Revdr.RedFileName!)" mat-flat-button style="background-color: #259203; color: white;" >Download</button></div>
+                                    </ng-container>
+
+                                    <ng-template #noFileReviwer>
+                                    <mat-card-content class="contentdrw">
+                                            Upload Redline Drawing Below
+                                            <div>
+                                            <input type="file" class="file-input"  (change)="onChange($event)" #fileUpload />
+
+                                            <div *ngIf="file">
+                                                <section class="file-info">
+                                                    <ul>
+                                                    <li>Name: {{file.name}}</li>
+                                                    <li>Type: {{file.type}}</li>
+                                                    <li>Size: {{file.size}} bytes</li>
+                                                    </ul>
+                                                </section>
+                                            </div>
+                                            </div>
+                                    </mat-card-content>
+                                    <mat-dialog-actions align="end">
+                                    <button mat-flat-button color="primary" (click) = "RedlineUpload(Revdr.DID!)"mat-dialog-close [disabled] = "file === null" >Upload</button>
+                                </mat-dialog-actions>
+                                </ng-template>
+                                </div>
+                                
+                       
+                        </div>
+                        </mat-expansion-panel>
+                        
+                    </mat-expansion-panel>
+                    </ng-container>
+                        </ng-container>
+                    </mat-card-content>
+                    <div class = "InvRevBut">
+                        <!-- <div class = "CompleteBut" ><button class = "CompleteButton"  (click) = "openNewDrawRev(NewReview,Invdr.DID!)" mat-flat-button style="background-color: #259203; color: white;" >New Draft</button></div> -->
+                         <!-- <div class = "CompleteBut"><button class = "CompleteButton"  (click) = CompleteDrwRev(Invdr.DID!) mat-flat-button style="background-color: #918700; color: white;" >Complete Review</button></div> -->
+                    </div>
+                        </mat-expansion-panel>
+        </ng-container>
+    </ng-container>
+        </mat-card-content>
+    </mat-expansion-panel>
+    </div>
+
 </div>
 
 <ng-template #NewReview>
@@ -163,7 +325,7 @@
             <div class = "dropdown">
                 <div> Designer: </div>
                 <mat-form-field >
-                    <mat-select [(ngModel)]="DesignerUser" placeholder="DesignerUser">
+                    <mat-select [(ngModel)]="new_DR.FromUID" placeholder="DesignerUser" [disabled]="new_DR.FromUID !== null">
                         <mat-option *ngFor ="let user of Names" [value] = "user.UID">
                             {{ user.UserFirst }} {{ user.UserLast }}
                         </mat-option>
@@ -173,59 +335,76 @@
             <div class = "dropdown">
                 <div> Reviwer: </div>
                 <mat-form-field >
-                    <mat-select [(ngModel)]="selecteduser" placeholder="Reviewer">
+                    <mat-select [(ngModel)]="new_DR.ToUID" placeholder="Reviewer" [disabled]="new_DR.ToUID !== null">
                         <mat-option *ngFor ="let user of Names" [value] = "user.UID">
                             {{ user.UserFirst }} {{ user.UserLast }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
-        </div>
-        <div class = "row">
-            <!--<div class = "textlabels">
-            Tool Number
-            <mat-form-field class="example-full-width">
-                <mat-label></mat-label>
-                <input matInput
-                [(ngModel)] = "selectedProject.ToolNumber"
-                placeholder="selectedProject.ToolNumber"
-                value= "selectedProject.ToolNumber"
-                >
-            </mat-form-field>
-        </div>
-        <div class = "textlabels">
-            Tool Description
-            <mat-form-field class="example-full-width">
-                <mat-label></mat-label>
-                <input matInput
-                [(ngModel)] = "selectedProject.ToolDesc"
-                placeholder="selectedProject.ToolDesc"
-                value= "selectedProject.ToolDesc"
-                >
-            </mat-form-field>
-        </div>-->
-        </div>
-        <div class = "row">
             <div class = "dropdown">
                 <div> Need by Date </div>
                 <mat-form-field>
                     <mat-label>Choose a date</mat-label>
-                    <input matInput [matDatepicker]="picker">
+                    <input matInput [matDatepicker]="picker" [(ngModel)] = "new_DR.DateNeed">
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
-            <div class = "dropdown">
-                <div> Reviwer: </div>
-                <mat-form-field >
-                    <mat-select [(ngModel)]="selecteduser" placeholder="Reviewer">
-                        <mat-option *ngFor ="let user of Names" [value] = "user.UID">
-                            {{ user.UserFirst }} {{ user.UserLast }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
         </div>
+        <div class = "row">
+            <div class = "textlabelsnum">
+            Tool Number
+            <mat-form-field class="ToolNumber">
+                <mat-label></mat-label>
+                <input matInput
+                [(ngModel)] = "new_DR.ToolNumber"
+                placeholder="ToolNumber"
+                value= "new_DR.ToolNumber"
+                >
+            </mat-form-field>
+        </div>
+        <div class = "textlabelsdesc">
+            Tool Description
+            <mat-form-field class="ToolDesc">
+                <mat-label></mat-label>
+                <input matInput
+                [(ngModel)] = "new_DR.ToolDesc"
+                placeholder="Tool Name"
+                value= "new_DR.ToolDesc"
+                >
+            </mat-form-field>
+        </div>
+        </div>
+        <!-- File Upload Area -->
+        <mat-card-content class="contentdrw">
+            Upload Drawing Draft Below
+            <div>
+            <input type="file" class="file-input"  (change)="onChange($event)" #fileUpload />
+
+            <div *ngIf="file">
+                <section class="file-info">
+                    <ul>
+                    <li>Name: {{file.name}}</li>
+                    <li>Type: {{file.type}}</li>
+                    <li>Size: {{file.size}} bytes</li>
+                    </ul>
+                </section>
+            </div>
+            </div>
+    </mat-card-content>
     </div>
+    <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click) = ToUID()>Cancel</button>
+    <button mat-flat-button color="primary" (click) = "NewDrawRev_Logic()"mat-dialog-close [disabled] = "new_DR.ToolNumber === null || new_DR.ToolDesc === null || new_DR.DateNeed === null || new_DR.FromUID === null || new_DR.ToUID === null || file === null" >Verify</button>
+  </mat-dialog-actions>
+  
+    
 </ng-template>
+
+<ng-template #noFile>
+    <div class="Downtext">Review in process </div>
+  </ng-template>
+
+

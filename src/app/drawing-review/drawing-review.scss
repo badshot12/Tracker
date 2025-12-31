@@ -139,9 +139,67 @@
 .dropdown{
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 25%;
 }
 .reviewtitle{
     font-size: 180%;
     padding: 5%;
 }
+.textlabelsnum{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+    width: 50%;
+    padding: 2%;
+}
+.textlabelsdesc{
+     display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+    width: 80%;
+    padding: 2%;
+}
+
+.ToolNumber
+{
+flex: 1;
+}
+.ToolDesc{
+    flex: 1;
+}
+.InvRevBut{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.download{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+.DownBut{
+    display: flex;
+    justify-content: right;
+    padding:2%;
+}
+.downloadUpload{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    
+    padding: 1%;
+    
+}
+.divider{
+    height: 150px;
+}
+.downheader{
+  padding: 2%;
+  padding-bottom: 3%;
+  font-size: 150%;
+}
+

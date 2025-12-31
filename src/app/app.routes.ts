@@ -10,6 +10,7 @@ import { NewRequest } from './new-request/new-request';
 import { RequestComplete } from './request-complete/request-complete';
 import { ToolNumberGen } from './tool-number-gen/tool-number-gen';
 import { DrawingReview } from './drawing-review/drawing-review';
+import { ToolHistory } from './tool-history/tool-history';
 
 export const routes: Routes = [
 {path: '', component: Landing}, 
@@ -23,4 +24,5 @@ export const routes: Routes = [
 {path: 'RequestComplete', component: RequestComplete},
 {path: 'ToolNumberGen/:UID', component: ToolNumberGen},
 {path: 'DrawingReview/:UID', component: DrawingReview},
+{path: 'ToolHistory',component:ToolHistory},
 ];

@@ -240,5 +240,8 @@ CompleteProject(logic:number){
 ToolNumberGenRoute(){
   this.router.navigate(['/ToolNumberGen', this.ProjectData[0].UID]);
 }
+ToolHistoryRoute(){
+  this.router.navigate(['/ToolHistory']);
+}
 
 }

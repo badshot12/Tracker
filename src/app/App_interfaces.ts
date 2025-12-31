@@ -109,10 +109,11 @@ export interface DrawingReviewINT {
   FirstItem:number | null;
   Complete: number | null;
   Checked: number | null;
-  DateSub: string | null;
-  DateNeed: string | null;
+  DateSub: Date | null;
+  DateNeed: Date | null;
   FileName: string | null;
   Revs: number | null;
   FromName:string|null;
   ToName: string|null;
+  RedFileName:string|null;
 }

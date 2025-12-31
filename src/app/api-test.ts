@@ -118,9 +118,38 @@ public getDrawingReviewInfo(UID: number){
   const actualUrl = this.apiUrl + '/getDrawingReview';
   return this.http.post<any>(actualUrl,UID);
 }
+public DrawRevUpdate(DR: object,file?:File){
 
+  const formData = new FormData();
+  formData.append('DR', JSON.stringify(DR));
+  if (file) {
+    formData.append('file', file, file.name);
+  }
 
+  const actualUrl = this.apiUrl + '/DrawRevUpdate';
+  return this.http.post(actualUrl,formData);
+}
+  // const actualUrl = this.apiUrl + '/DrawRevUpdate';
+  // return this.http.post<any>(actualUrl,DR);
 
+public CompleteDrwRev(DR: number){
+  
+  const actualUrl = this.apiUrl + '/CompleteDrwRev';
+  return this.http.post<any>(actualUrl,DR);
+}
+public FiledownloadAPI(filename:string){
+   const actualUrl = this.apiUrl + '/FiledownloadAPI';
+  return this.http.post(actualUrl,{ filename: filename },{ responseType: 'blob' });
+}
 
+public RedlineUpload(DR: object,file?:File){
+const formData = new FormData();
+  formData.append('DR', JSON.stringify(DR));
+  if (file) {
+    formData.append('file', file, file.name);
+  }
 
+  const actualUrl = this.apiUrl + '/RedlineUpload';
+  return this.http.post(actualUrl,formData);
+}
 }
